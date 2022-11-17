@@ -1,0 +1,28 @@
+﻿using System;
+using UnityEngine;
+
+namespace Zenject
+{
+    public class ProjectSetup : IInitializable, IDisposable
+    {
+        private readonly ProjectSettings _projectSettings;
+        
+        public ProjectSetup(ProjectSettings projectSettings)
+        {
+            _projectSettings = projectSettings;
+        }
+
+        public void Initialize()
+        {
+            Application.targetFrameRate = _projectSettings.TargetFps;
+            Input.multiTouchEnabled = _projectSettings.IsMultiTouch;
+            Screen.autorotateToLandscapeLeft = _projectSettings.IsScreenRotation;
+            Screen.autorotateToLandscapeRight = _projectSettings.IsScreenRotation;
+        }
+
+        public void Dispose()
+        {
+            
+        }
+    }
+}
