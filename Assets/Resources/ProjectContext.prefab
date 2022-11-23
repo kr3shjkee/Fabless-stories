@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53900876d571234bb75a01d64ba9991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManagerPrefab: {fileID: 8019623812018567928, guid: 01d822f70a3f8ef4e97190df6eb1a37f, type: 3}

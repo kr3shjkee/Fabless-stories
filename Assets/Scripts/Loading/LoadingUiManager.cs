@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using Signals.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,14 +12,15 @@ namespace Loading
     {
         private readonly SignalBus _signalBus;
         private readonly SaveSystem _saveSystem;
-        
         private readonly UiPanelsController _uiPanelsController;
+        private SoundManager _soundManager;
 
-        public LoadingUiManager(SignalBus signalBus, SaveSystem saveSystem, UiPanelsController uiPanelsController)
+        public LoadingUiManager(SignalBus signalBus, SaveSystem saveSystem, UiPanelsController uiPanelsController, SoundManager soundManager)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _uiPanelsController = uiPanelsController;
+            _soundManager = soundManager;
         }
         
         public void Initialize()
@@ -31,6 +33,8 @@ namespace Loading
             else
             {
                 _saveSystem.LoadData();
+                _soundManager.IsSoundMute(_saveSystem.Data.IsSoundMute);
+                _soundManager.IsMusicMute(_saveSystem.Data.IsMusicMute);
                 ShowMainMenu();
             }
         }
@@ -47,6 +51,8 @@ namespace Loading
             _signalBus.Subscribe<OnBackButtonClickSignal>(ShowMainMenu);
             _signalBus.Subscribe<OnExitButtonClickSignal>(ExitApplication);
             _signalBus.Subscribe<OnOptionsButtonClickSignal>(ShowOptionMenu);
+            _signalBus.Subscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
+            _signalBus.Subscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
         }
 
         private void UnSubscribeSignals()
@@ -56,6 +62,8 @@ namespace Loading
             _signalBus.Unsubscribe<OnBackButtonClickSignal>(ShowMainMenu);
             _signalBus.Unsubscribe<OnExitButtonClickSignal>(ExitApplication);
             _signalBus.Unsubscribe<OnOptionsButtonClickSignal>(ShowOptionMenu);
+            _signalBus.Unsubscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
+            _signalBus.Unsubscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
         }
 
         private void ShowTermOfUse()
@@ -81,6 +89,18 @@ namespace Loading
         {
             _saveSystem.SaveData();
             Application.Quit();
+        }
+
+        private void SaveSoundOptions(OnSoundOptionChangedSignal signal)
+        {
+            _saveSystem.Data.IsSoundMute = signal.IsMute;
+            _saveSystem.SaveData();
+        }
+        
+        private void SaveMusicOptions(OnMusicOptionChangedSignal signal)
+        {
+            _saveSystem.Data.IsMusicMute = signal.IsMute;
+            _saveSystem.SaveData();
         }
     }
 }

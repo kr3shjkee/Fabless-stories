@@ -1,4 +1,6 @@
 ﻿using System;
+using Common;
+using Loading;
 using UnityEngine;
 
 namespace Zenject
@@ -6,10 +8,13 @@ namespace Zenject
     public class ProjectSetup : IInitializable, IDisposable
     {
         private readonly ProjectSettings _projectSettings;
-        
-        public ProjectSetup(ProjectSettings projectSettings)
+
+        private readonly SaveSystem _saveSystem;
+
+        public ProjectSetup(ProjectSettings projectSettings, SaveSystem saveSystem)
         {
             _projectSettings = projectSettings;
+            _saveSystem = saveSystem;
         }
 
         public void Initialize()

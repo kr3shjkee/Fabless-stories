@@ -6,6 +6,7 @@ namespace Loading
     {
         protected override void OnClick()
         {
+            base.OnClick();
             _signalBus.Fire<OnExitButtonClickSignal>();
         }
     }

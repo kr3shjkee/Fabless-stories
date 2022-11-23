@@ -652,6 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259820940}
   - component: {fileID: 1259820941}
+  - component: {fileID: 7160743893929802930}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -727,8 +728,32 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7160743893929802930}
+        m_TargetAssemblyTypeName: BaseToggle, Assembly-CSharp
+        m_MethodName: ChangeToggleValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &7160743893929802930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259820939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0984f5a2cbfb419a80394188984915d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1279022681
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546992844}
   - component: {fileID: 1546992845}
+  - component: {fileID: 3351524180824069552}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -851,8 +877,32 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3351524180824069552}
+        m_TargetAssemblyTypeName: BaseToggle, Assembly-CSharp
+        m_MethodName: ChangeToggleValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &3351524180824069552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546992843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201939c3eb0a4b7d89ceec875a816a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1632536383
 GameObject:
   m_ObjectHideFlags: 0

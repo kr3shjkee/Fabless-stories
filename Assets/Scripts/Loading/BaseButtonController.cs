@@ -1,3 +1,4 @@
+using Common;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -5,16 +6,18 @@ using Zenject;
 public abstract class BaseButtonController : MonoBehaviour
 {
     protected SignalBus _signalBus;
+    protected SoundManager _soundManager;
         
     [Inject]
-    public void Construct(SignalBus signalBus)
+    public void Construct(SignalBus signalBus, SoundManager soundManager)
     {
         _signalBus = signalBus;
+        _soundManager = soundManager;
     }
 
     protected Button _button;
         
-    private  void Awake()
+    protected virtual void Awake()
     {
         _button = GetComponent<Button>();
     }
@@ -28,6 +31,9 @@ public abstract class BaseButtonController : MonoBehaviour
     {
         _button.onClick.RemoveListener(OnClick);
     }
-        
-    protected abstract void OnClick();
+
+    protected virtual void OnClick()
+    {
+        _soundManager.ButtonClickSoundPlay();
+    }
 }
