@@ -1,12 +1,15 @@
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ProjectConfigInstaller", menuName = "Installers/ProjectConfigInstaller")]
-public class ProjectConfigInstaller : ScriptableObjectInstaller<ProjectConfigInstaller>
+namespace Installers.Project
 {
-    [SerializeField] private ProjectSettings projectSettings;
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ProjectConfigInstaller", menuName = "Installers/ProjectConfigInstaller")]
+    public class ProjectConfigInstaller : ScriptableObjectInstaller<ProjectConfigInstaller>
     {
-        Container.BindInstances(projectSettings);
+        [SerializeField] private ProjectSettings projectSettings;
+        public override void InstallBindings()
+        {
+            Container.BindInstances(projectSettings);
+        }
     }
 }

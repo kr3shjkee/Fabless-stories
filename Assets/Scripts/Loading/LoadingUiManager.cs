@@ -33,8 +33,7 @@ namespace Loading
             else
             {
                 _saveSystem.LoadData();
-                _soundManager.IsSoundMute(_saveSystem.Data.IsSoundMute);
-                _soundManager.IsMusicMute(_saveSystem.Data.IsMusicMute);
+                LoadSoundOptions();
                 ShowMainMenu();
             }
         }
@@ -74,6 +73,7 @@ namespace Loading
         {
             _uiPanelsController.ShowMainMenuPanel();
         }
+        
 
         private void StartGameScene()
         {
@@ -101,6 +101,12 @@ namespace Loading
         {
             _saveSystem.Data.IsMusicMute = signal.IsMute;
             _saveSystem.SaveData();
+        }
+
+        private void LoadSoundOptions()
+        {
+            _soundManager.IsSoundMute(_saveSystem.Data.IsSoundMute);
+            _soundManager.IsMusicMute(_saveSystem.Data.IsMusicMute);
         }
     }
 }

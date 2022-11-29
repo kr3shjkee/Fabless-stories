@@ -1,4 +1,5 @@
-﻿using Signals.Loading;
+﻿using Common;
+using Signals.Loading;
 
 namespace Loading
 {
