@@ -1499,6 +1499,7 @@ MonoBehaviour:
   - {fileID: 7324641946941507039}
   - {fileID: 7324641946924322513}
   - {fileID: 7324641947714188102}
+  uiCanvas: {fileID: 7971703055040866420}
 --- !u!1 &7324641948859047652
 GameObject:
   m_ObjectHideFlags: 0

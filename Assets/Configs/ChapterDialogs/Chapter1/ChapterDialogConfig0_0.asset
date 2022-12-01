@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2443d4fe33bf4f188c7b058e2555dae6, type: 3}
+  m_Name: ChapterDialogConfig0_0
+  m_EditorClassIdentifier: 
+  levelNumber: 0
+  dialogs:
+  - dialogId: 0
+    chapterName: Angie
+    character: {fileID: 8065611879810590344, guid: 10080bb26d449054ea3983644502e1f0, type: 3}
+    characterText: Hello. Help me understand where I am now?
+  - dialogId: 1
+    chapterName: Mr. Cat
+    character: {fileID: 1833075456448242, guid: 1713af3811cfb9d4d82968643d5b8586, type: 3}
+    characterText: Hello Angie. You have entered the world of fabless stories. Help
+      us solve the problems of this world and I will bring you home.
+  - dialogId: 2
+    chapterName: Angie
+    character: {fileID: 8065611879810590344, guid: 10080bb26d449054ea3983644502e1f0, type: 3}
+    characterText: Okay, I'll help. Where do we start?
+  - dialogId: 3
+    chapterName: Mr. Cat
+    character: {fileID: 1833075456448242, guid: 1713af3811cfb9d4d82968643d5b8586, type: 3}
+    characterText: First, go through training to understand the rules of this world.

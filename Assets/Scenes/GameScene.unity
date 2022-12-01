@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUiPanelsControllerPrefab: {fileID: 7324641948810836803, guid: 88e791e5aebfaef43a59541774930f26, type: 3}
+  chapterDialogPrefab: {fileID: 438017359820333512, guid: bc600254d69fd1d4f98639bee94441e5, type: 3}
 --- !u!114 &2008939177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 4e1b7621a5c1ee741a0a7fc4bd0a66dc, type: 2}
   _monoInstallers:
   - {fileID: 2008939176}
   _installerPrefabs: []
