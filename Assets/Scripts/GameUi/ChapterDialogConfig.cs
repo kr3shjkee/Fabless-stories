@@ -24,12 +24,13 @@ namespace GameUi
     {
         [SerializeField] private int dialogId;
         [SerializeField] private string characterName;
-        [SerializeField] private GameObject character;
+        [SerializeField] private Sprite characterSpr;
         [SerializeField] private string characterText;
         
         public int DialogId => dialogId;
         public string CharacterName => characterName;
-        public GameObject Character => character;
         public string CharacterText => characterText;
+
+        public Sprite CharacterSpr => characterSpr;
     }
 }

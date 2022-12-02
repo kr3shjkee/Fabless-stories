@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Common;
 using Signals.Ui;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace GameUi
@@ -19,9 +19,11 @@ namespace GameUi
         private const float TEXT_WRITING_DELAY = 0.1f;
         
         [SerializeField] private GameObject chaptersPanel;
-        [SerializeField] private TextMeshProUGUI characterName;
+        [SerializeField] private Image characterSpr1;
+        [SerializeField] private Image characterSpr2;
         [SerializeField] private TextMeshProUGUI dialogText;
-
+        [SerializeField] private TextMeshProUGUI chapterName;
+        
         private SignalBus _signalBus;
         private DialogConfig _dialogConfig;
         private SoundManager _soundManager;
@@ -50,23 +52,34 @@ namespace GameUi
         public void Initialize()
         {
             ClearCurrentDialog();
-            characterName.text = _dialogConfig.CharacterName;
-            Instantiate(_dialogConfig.Character, chaptersPanel.transform);
+            chapterName.text = _dialogConfig.CharacterName;
+            if (_dialogConfig.DialogId == 0)
+            {
+                characterSpr1.enabled = true;
+                characterSpr1.sprite = _dialogConfig.CharacterSpr;
+            }
+            else
+            {
+                characterSpr2.enabled = true;
+                characterSpr2.sprite = _dialogConfig.CharacterSpr;
+            }
+            
             if (!_isTextFull)
                 StartCoroutine(WriteDialogText());
         }
 
         private void ClearCurrentDialog()
         {
-            characterName.text = "";
+            characterSpr1.enabled = false;
+            characterSpr2.enabled = false;
+            chapterName.text = "";
             dialogText.text = "";
-            foreach (Transform child in chaptersPanel.transform) 
-                Destroy(child.gameObject);
             _isTextFull = false;
         }
 
         private IEnumerator WriteDialogText()
         {
+            _soundManager.KeyboardSoundPlay();
             int index = 0;
             List<char> list = new List<char>();
             while (index < _dialogConfig.CharacterText.Length)
@@ -76,14 +89,17 @@ namespace GameUi
                 index++;
                 yield return new WaitForSeconds(TEXT_WRITING_DELAY);
             }
-
+            _soundManager.KeyboardSoundStop();
             _isTextFull = true;
         }
 
         private void CheckSignal()
         {
             if (!_isTextFull)
+            {
                 GetFullText();
+                _soundManager.KeyboardSoundStop();
+            }
             else
             {
                 _signalBus.Fire<OnNextDialogSignal>();

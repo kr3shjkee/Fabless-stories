@@ -15,19 +15,19 @@ MonoBehaviour:
   levelNumber: 0
   dialogs:
   - dialogId: 0
-    chapterName: Angie
-    character: {fileID: 8065611879810590344, guid: 10080bb26d449054ea3983644502e1f0, type: 3}
+    characterName: Angie
+    characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
     characterText: Hello. Help me understand where I am now?
   - dialogId: 1
-    chapterName: Mr. Cat
-    character: {fileID: 1833075456448242, guid: 1713af3811cfb9d4d82968643d5b8586, type: 3}
+    characterName: Poppy
+    characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
     characterText: Hello Angie. You have entered the world of fabless stories. Help
       us solve the problems of this world and I will bring you home.
-  - dialogId: 2
-    chapterName: Angie
-    character: {fileID: 8065611879810590344, guid: 10080bb26d449054ea3983644502e1f0, type: 3}
+  - dialogId: 0
+    characterName: Angie
+    characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
     characterText: Okay, I'll help. Where do we start?
-  - dialogId: 3
-    chapterName: Mr. Cat
-    character: {fileID: 1833075456448242, guid: 1713af3811cfb9d4d82968643d5b8586, type: 3}
+  - dialogId: 1
+    characterName: Poppy
+    characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
     characterText: First, go through training to understand the rules of this world.

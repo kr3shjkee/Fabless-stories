@@ -1388,6 +1388,7 @@ GameObject:
   - component: {fileID: 7324641948810836800}
   - component: {fileID: 7324641948810836807}
   - component: {fileID: 7324641948810836803}
+  - component: {fileID: 1932462459263809565}
   m_Layer: 5
   m_Name: UiGameManager
   m_TagString: Untagged
@@ -1500,6 +1501,14 @@ MonoBehaviour:
   - {fileID: 7324641946924322513}
   - {fileID: 7324641947714188102}
   uiCanvas: {fileID: 7971703055040866420}
+--- !u!222 &1932462459263809565
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7324641948810836806}
+  m_CullTransparentMesh: 1
 --- !u!1 &7324641948859047652
 GameObject:
   m_ObjectHideFlags: 0
