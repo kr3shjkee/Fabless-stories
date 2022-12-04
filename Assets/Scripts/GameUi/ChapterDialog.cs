@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Common;
+using Configs;
 using Signals.Ui;
 using TMPro;
 using UnityEngine;

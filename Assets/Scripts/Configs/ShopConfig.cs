@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using Common;
 using UnityEngine;
 
-namespace Common
+namespace Configs
 {
     [CreateAssetMenu(fileName = "ShopConfig", menuName = "Configs/Shop/ShopConfig", order = 0)]
     public class ShopConfig : ScriptableObject

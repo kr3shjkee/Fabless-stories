@@ -1,7 +1,10 @@
 ﻿using System;
 using Common;
+using Configs;
 using GameUi;
+using Signals.Game;
 using Signals.Ui;
+using UnityEngine;
 using Zenject;
 
 namespace Game
@@ -11,8 +14,10 @@ namespace Game
         private readonly SignalBus _signalBus;
         private readonly SaveSystem _saveSystem;
         private readonly GameUiManager _gameUiManager;
-        private readonly ChapterDialog.Factory _factory;
+        private readonly ChapterDialog.Factory _chapterDialogFactory;
         private readonly ChapterDialogConfig[] _chapterDialogConfigs;
+        private readonly PlayerController _player;
+        private readonly ChapterMapController _chapterMapController;
 
         private ChapterDialogConfig _currentChapterDialogConfigs;
         private int index = 0;
@@ -20,19 +25,22 @@ namespace Game
 
         private DialogConfig[] _dialogConfigs;
 
-        public GameManager(SignalBus signalBus, SaveSystem saveSystem, GameUiManager gameUiManager, ChapterDialog.Factory factory, ChapterDialogConfig[] chapterDialogConfigs)
+        public GameManager(SignalBus signalBus, SaveSystem saveSystem, GameUiManager gameUiManager, 
+            ChapterDialog.Factory ChapterDialogFactory, ChapterDialogConfig[] chapterDialogConfigs,
+            PlayerController player, ChapterMapController chapterMapController)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _gameUiManager = gameUiManager;
-            _factory = factory;
+            _chapterDialogFactory = ChapterDialogFactory;
             _chapterDialogConfigs = chapterDialogConfigs;
+            _player = player;
+            _chapterMapController = chapterMapController;
         }
         
         public void Initialize()
         {
             SubscribeSignals();
-            StartChapterDialog();
         }
         
 
@@ -44,18 +52,22 @@ namespace Game
         private void SubscribeSignals()
         {
             _signalBus.Subscribe<OnNextDialogSignal>(NextDialog);
+            _signalBus.Subscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            _signalBus.Subscribe<OnPlayLevelButtonClickSignal>(NextLevel);
         }
         
         private void UnsubscribeSignals()
         {
             _signalBus.Unsubscribe<OnNextDialogSignal>(NextDialog);
+            _signalBus.Unsubscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            _signalBus.Unsubscribe<OnPlayLevelButtonClickSignal>(NextLevel);
         }
 
         private void StartChapterDialog()
         {
            _gameUiManager.HideGameUi();
            SetDialogsConfigs();
-           _currentDialog = _factory.Create(_dialogConfigs[index]);
+           _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[index]);
            _currentDialog.Initialize();
         }
 
@@ -77,9 +89,35 @@ namespace Game
             }
             else
             {
-                _currentDialog = _factory.Create(_dialogConfigs[index]);
+                _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[index]);
                 _currentDialog.Initialize();
             }
+        }
+
+        private void InitPlayer()
+        {
+            _player.Initialize(LetCurrentLevelPosition());
+            if (_chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber].IsDialog)
+            {
+                StartChapterDialog();
+            }
+        }
+        
+        private Vector2 LetCurrentLevelPosition()
+        {
+            return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber].LocalPosition;
+        }
+
+        public void NextLevel()
+        {
+            _saveSystem.Data.CurrentLevelNumber++;
+            _player.MoveToNextLevel(LetCurrentLevelPosition());
+        }
+
+        public void BackLevel()
+        {
+            _saveSystem.Data.CurrentLevelNumber--;
+            _player.MoveToNextLevel(LetCurrentLevelPosition());
         }
     }
 }

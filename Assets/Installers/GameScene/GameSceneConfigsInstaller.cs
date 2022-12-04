@@ -1,13 +1,18 @@
-using GameUi;
+using Configs;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "GameSceneConfigsInstaller", menuName = "Installers/GameSceneConfigsInstaller")]
-public class GameSceneConfigsInstaller : ScriptableObjectInstaller<GameSceneConfigsInstaller>
+namespace Installers.GameScene
 {
-    [SerializeField] private ChapterDialogConfig[] chapterDialogConfig;
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "GameSceneConfigsInstaller", menuName = "Installers/GameSceneConfigsInstaller")]
+    public class GameSceneConfigsInstaller : ScriptableObjectInstaller<GameSceneConfigsInstaller>
     {
-        Container.BindInstances(chapterDialogConfig);
+        [SerializeField] private ChapterDialogConfig[] chapterDialogConfigs;
+        [SerializeField] private ChapterMapConfig[] chapterMapConfigs;
+        public override void InstallBindings()
+        {
+            Container.BindInstances(chapterDialogConfigs);
+            Container.BindInstances(chapterMapConfigs);
+        }
     }
 }

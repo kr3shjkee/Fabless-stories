@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa07b008eac4bc793264c3858540f75, type: 3}
+  m_Name: ChapterMapConfig0
+  m_EditorClassIdentifier: 
+  levelMapConfigs:
+  - levelNumber: 1
+    isDialog: 1
+    color: 0
+  - levelNumber: 2
+    isDialog: 0
+    color: 1
+  - levelNumber: 3
+    isDialog: 1
+    color: 2
+  - levelNumber: 4
+    isDialog: 0
+    color: 3
+  - levelNumber: 5
+    isDialog: 1
+    color: 0
