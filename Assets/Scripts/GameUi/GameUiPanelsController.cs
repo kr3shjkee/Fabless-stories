@@ -9,8 +9,10 @@ namespace GameUi
         [SerializeField] private GameObject shopPanel;
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject soundOptionsPanel;
+        [SerializeField] private GameObject comingSoonPanel;
         [SerializeField] private Button[] uiButtons;
         [SerializeField] private GameObject uiCanvas;
+        
 
         public void ShowHealthPanel()
         {
@@ -42,6 +44,12 @@ namespace GameUi
             
             if (currentPanel!=soundOptionsPanel)
                 InteractableButtonsActivate();
+        }
+
+        public void ShowComingSoonPanel()
+        {
+            comingSoonPanel.SetActive(true);
+            InteractableButtonsDeactivate();
         }
 
         private void InteractableButtonsActivate()

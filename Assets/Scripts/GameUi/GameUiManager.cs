@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using Signals.Game;
 using Signals.Ui;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -37,6 +38,7 @@ namespace GameUi
             _signalBus.Subscribe<OnShopButtonClickSignal>(ShowShopPanel);
             _signalBus.Subscribe<OnExitButtonClickSignal>(BackToLoadingScene);
             _signalBus.Subscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
+            _signalBus.Subscribe<ComingSoonSignal>(ShowComingSoonPanel);
         }
 
         private void UnsubscribeSignals()
@@ -47,6 +49,7 @@ namespace GameUi
             _signalBus.Unsubscribe<OnShopButtonClickSignal>(ShowShopPanel);
             _signalBus.Unsubscribe<OnExitButtonClickSignal>(BackToLoadingScene);
             _signalBus.Unsubscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
+            _signalBus.Unsubscribe<ComingSoonSignal>(ShowComingSoonPanel);
         }
 
         private void ShowHealthPanel()
@@ -67,6 +70,11 @@ namespace GameUi
         private void ShowSoundOptionsPanel()
         {
             _gameUiPanelsController.ShowSoundOptionsPanel();
+        }
+
+        private void ShowComingSoonPanel()
+        {
+            _gameUiPanelsController.ShowComingSoonPanel();
         }
 
         private void BackToLoadingScene()

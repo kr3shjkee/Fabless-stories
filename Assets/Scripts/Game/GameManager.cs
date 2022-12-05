@@ -110,8 +110,15 @@ namespace Game
 
         public void NextLevel()
         {
-            _saveSystem.Data.CurrentLevelNumber++;
-            _player.MoveToNextLevel(LetCurrentLevelPosition());
+            if (_saveSystem.Data.CurrentLevelNumber+1 < _chapterMapController.Levels.Length)
+            {
+                _saveSystem.Data.CurrentLevelNumber++;
+                _saveSystem.SaveData();
+                _player.MoveToNextLevel(LetCurrentLevelPosition());
+            }
+            else
+                _signalBus.Fire<ComingSoonSignal>();
+
         }
 
         public void BackLevel()
