@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f662535a2c4f4c10bbd080efe61f5c64, type: 3}
+  m_Name: ChapterConfig1
+  m_EditorClassIdentifier: 
+  dialogConfigs:
+  - levelNumber: 1
+    dialogs:
+    - characterPosition: 0
+      characterName: qwe
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: qwe
+    - characterPosition: 1
+      characterName: asd
+      characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
+      characterText: asd
+  - levelNumber: 3
+    dialogs:
+    - characterPosition: 0
+      characterName: qwe2
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: qwe2
+    - characterPosition: 1
+      characterName: asd2
+      characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
+      characterText: asd2
+  - levelNumber: 5
+    dialogs:
+    - characterPosition: 0
+      characterName: qwe3
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: qwe3
+    - characterPosition: 1
+      characterName: asd3
+      characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
+      characterText: asd3

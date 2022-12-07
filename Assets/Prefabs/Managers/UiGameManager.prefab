@@ -1674,13 +1674,15 @@ MonoBehaviour:
   shopPanel: {fileID: 3506979612465468639}
   optionsPanel: {fileID: 7954474351256009330}
   soundOptionsPanel: {fileID: 8236560919096459638}
-  comingSoonPanel: {fileID: 7699180664251913422}
   uiButtons:
   - {fileID: 7324641946941507039}
   - {fileID: 7324641946924322513}
   - {fileID: 7324641947714188102}
   - {fileID: 1798044745113454998}
   uiCanvas: {fileID: 7971703055040866420}
+  healthValue: {fileID: 7324641946849067560}
+  goldValue: {fileID: 7324641948881279748}
+  comingSoonPanel: {fileID: 7699180664251913422}
 --- !u!222 &1932462459263809565
 CanvasRenderer:
   m_ObjectHideFlags: 0

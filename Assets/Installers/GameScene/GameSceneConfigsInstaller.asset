@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9970a21b7b1bd1043b3cd837a4ffe872, type: 3}
   m_Name: GameSceneConfigsInstaller
   m_EditorClassIdentifier: 
-  chapterDialogConfigs:
-  - {fileID: 11400000, guid: 083bd801f3614dc4196c5388500ce3d6, type: 2}
+  chapterConfigs: {fileID: 11400000, guid: f69c7a008488cbb42ba256e43ffab46a, type: 2}
   chapterMapConfigs:
   - {fileID: 11400000, guid: fdd12b2ca608cad4eb9c0dc627664a94, type: 2}

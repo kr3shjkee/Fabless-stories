@@ -54,7 +54,7 @@ namespace GameUi
         {
             ClearCurrentDialog();
             chapterName.text = _dialogConfig.CharacterName;
-            if (_dialogConfig.DialogId == 0)
+            if (_dialogConfig.IsCharacterPositionLeft())
             {
                 characterSpr1.enabled = true;
                 characterSpr1.sprite = _dialogConfig.CharacterSpr;

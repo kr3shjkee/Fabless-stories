@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2e56ff53c604b4280ee8eca235ea9c, type: 3}
+  m_Name: LevelSceneConfigInstaller
+  m_EditorClassIdentifier: 
+  elementsConfig: {fileID: 11400000, guid: 0cf8d6ffb1df19c4a855d8e4104d9787, type: 2}
+  boardConfig: {fileID: 11400000, guid: eb1e1f5f3da2bef4cbfe33fbca9c65e0, type: 2}
+  levelConfigs: {fileID: 11400000, guid: 6c01b3ee8bfc5364ea0e647c23db4466, type: 2}

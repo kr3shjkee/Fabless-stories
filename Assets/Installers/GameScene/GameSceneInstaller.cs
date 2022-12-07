@@ -22,9 +22,6 @@ namespace Installers.GameScene
             
             InstallUiBindings();
             BindUiSignals();
-            
-            InstallLevelBindings();
-            BindLevelSignals();
         }
 
         private void InstallGameBindings()
@@ -62,14 +59,6 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnNextButtonClickSignal>();
             Container.DeclareSignal<OnNextDialogSignal>();
         }
-        private void InstallLevelBindings()
-        {
-            
-        }
         
-        private void BindLevelSignals()
-        {
-        
-        }
     }
 }

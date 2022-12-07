@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Common;
 using Configs;
 using GameUi;
@@ -20,20 +21,20 @@ namespace Game
         private readonly ChapterMapController _chapterMapController;
 
         private ChapterDialogConfig _currentChapterDialogConfigs;
-        private int index = 0;
+        private int _dialogIndex;
         private ChapterDialog _currentDialog;
 
         private DialogConfig[] _dialogConfigs;
 
         public GameManager(SignalBus signalBus, SaveSystem saveSystem, GameUiManager gameUiManager, 
-            ChapterDialog.Factory ChapterDialogFactory, ChapterDialogConfig[] chapterDialogConfigs,
+            ChapterDialog.Factory chapterDialogFactory, ChapterConfig chapterConfig,
             PlayerController player, ChapterMapController chapterMapController)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _gameUiManager = gameUiManager;
-            _chapterDialogFactory = ChapterDialogFactory;
-            _chapterDialogConfigs = chapterDialogConfigs;
+            _chapterDialogFactory = chapterDialogFactory;
+            _chapterDialogConfigs = chapterConfig.DialogConfigs;
             _player = player;
             _chapterMapController = chapterMapController;
         }
@@ -67,29 +68,29 @@ namespace Game
         {
            _gameUiManager.HideGameUi();
            SetDialogsConfigs();
-           _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[index]);
+           _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[_dialogIndex]); 
            _currentDialog.Initialize();
         }
 
-        private void SetDialogsConfigs() //TODO: добавить логику расширения
+        private void SetDialogsConfigs()
         {
-            _currentChapterDialogConfigs = _chapterDialogConfigs[0];
+            _currentChapterDialogConfigs = FindChapterDialogConfigByLevelNumber(_saveSystem.Data.CurrentLevelNumber);
             _dialogConfigs = _currentChapterDialogConfigs.Dialogs;
         }
 
         private void NextDialog()
         {
-            index++;
-            if (index>=_dialogConfigs.Length)
+            _dialogIndex++;
+            if (_dialogIndex>=_dialogConfigs.Length)
             {
-                index = 0;
+                _dialogIndex = 0;
                 _currentDialog.CloseChapterDialog();
                 _currentDialog = null;
                 _gameUiManager.ShowGameUi();
             }
             else
             {
-                _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[index]);
+                _currentDialog = _chapterDialogFactory.Create(_dialogConfigs[_dialogIndex]);
                 _currentDialog.Initialize();
             }
         }
@@ -97,34 +98,39 @@ namespace Game
         private void InitPlayer()
         {
             _player.Initialize(LetCurrentLevelPosition());
-            if (_chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber].IsDialog)
+            CheckLevelDialog();
+        }
+        
+        private Vector2 LetCurrentLevelPosition()
+        {
+            return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-1].LocalPosition;
+        }
+
+        public void NextLevel()
+        {
+            if (_saveSystem.Data.CurrentLevelNumber < _chapterMapController.Levels.Length)
+            {
+                _saveSystem.Data.CurrentLevelNumber++;
+                _saveSystem.SaveData();
+                _player.MoveToNextLevel(LetCurrentLevelPosition());
+                CheckLevelDialog();
+            }
+            else
+                _signalBus.Fire<ComingSoonSignal>();
+        }
+
+        private void CheckLevelDialog()
+        {
+            if (_chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-1].IsDialog)
             {
                 StartChapterDialog();
             }
         }
         
-        private Vector2 LetCurrentLevelPosition()
+        private ChapterDialogConfig FindChapterDialogConfigByLevelNumber(int level)
         {
-            return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber].LocalPosition;
+            return _chapterDialogConfigs.First(config => config.LevelNumber == level);
         }
-
-        public void NextLevel()
-        {
-            if (_saveSystem.Data.CurrentLevelNumber+1 < _chapterMapController.Levels.Length)
-            {
-                _saveSystem.Data.CurrentLevelNumber++;
-                _saveSystem.SaveData();
-                _player.MoveToNextLevel(LetCurrentLevelPosition());
-            }
-            else
-                _signalBus.Fire<ComingSoonSignal>();
-
-        }
-
-        public void BackLevel()
-        {
-            _saveSystem.Data.CurrentLevelNumber--;
-            _player.MoveToNextLevel(LetCurrentLevelPosition());
-        }
+        
     }
 }

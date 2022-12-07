@@ -10,7 +10,7 @@ namespace Game
     {
         private const float OFFSET = 5f;
         
-        private readonly ChapterMapConfig _chapterMapConfig;
+        
         private readonly LevelMapConfig[] _levelMapConfigs;
         private readonly MapLevel.Factory _factory;
         private readonly SignalBus _signalBus;
@@ -21,8 +21,8 @@ namespace Game
 
         public ChapterMapController(ChapterMapConfig chapterMapConfig, MapLevel.Factory factory, SignalBus signalBus)
         {
-            _chapterMapConfig = chapterMapConfig;
-            _levelMapConfigs = _chapterMapConfig.LevelMapConfigs;
+            
+            _levelMapConfigs = chapterMapConfig.LevelMapConfigs;
             _factory = factory;
             _signalBus = signalBus;
         }
@@ -47,8 +47,8 @@ namespace Game
             {
                 var pos = startPos + new Vector2(0, i * OFFSET);
                 var level = _factory.Create(_levelMapConfigs[i], new MapLevelPosition(pos));
-                level.Initialize();
                 _levels[i] = level;
+                level.Initialize();
             }
         }
     }
