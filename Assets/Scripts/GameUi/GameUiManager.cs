@@ -16,7 +16,18 @@ namespace GameUi
             _saveSystem = saveSystem;
             _gameUiPanelsController = gameUiPanelsController;
         }
-        
+
+        public override void Initialize()
+        {
+            _saveSystem.LoadData();
+            SubscribeSignals();
+        }
+
+        public override void Dispose()
+        {
+            UnsubscribeSignals();
+        }
+
         protected override void SubscribeSignals()
         {
             base.SubscribeSignals();
@@ -29,28 +40,35 @@ namespace GameUi
             _signalBus.Unsubscribe<ComingSoonSignal>(ShowComingSoonPanel);
         }
 
-        protected override void ShowHealthPanel()
+        public override void UpdateUiValues()
+        {
+            _gameUiPanelsController.UpdateGoldValue(_saveSystem.Data.Gold);
+            _gameUiPanelsController.UpdateHealthValue(_saveSystem.Data.HealthValue);
+        }
+
+        public override void ShowHealthPanel()
         {
             _gameUiPanelsController.ShowHealthPanel();
         }
 
-        protected override void ShowShopPanel()
+        public override void ShowShopPanel()
         {
             _gameUiPanelsController.ShowShopPanel();
         }
 
-        protected override void ShowOptionsPanel()
+        public override void ShowOptionsPanel()
         {
             _gameUiPanelsController.ShowOptionsPanel();
         }
 
-        protected override void ShowSoundOptionsPanel()
+        public override void ShowSoundOptionsPanel()
         {
             _gameUiPanelsController.ShowSoundOptionsPanel();
         }
 
-        protected override void BackToPreviousScene()
+        public override void BackToPreviousScene()
         {
+            _saveSystem.SaveData();
             SceneManager.LoadScene("LoadingScene");
         }
 

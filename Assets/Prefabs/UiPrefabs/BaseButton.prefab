@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 219036770725328962}
   - component: {fileID: 2946757486109572490}
   - component: {fileID: 8968559079295834579}
+  - component: {fileID: 1836748011790608542}
   m_Layer: 5
   m_Name: BaseButton
   m_TagString: Untagged
@@ -256,16 +257,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2946757486109572490}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1836748011790608542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993967251226312253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde2d6c218e149bda3d28437f60f3fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

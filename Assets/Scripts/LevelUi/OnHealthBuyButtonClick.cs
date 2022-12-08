@@ -1,14 +1,14 @@
 ﻿using Common;
 using Signals.Level;
 
-namespace Level
+namespace LevelUi
 {
-    public class OnRestartButtonClick : BaseButtonController
+    public class OnHealthBuyButtonClick : BaseButtonController
     {
         protected override void OnClick()
         {
             base.OnClick();
-            _signalBus.Fire<OnRestartSignal>();
+            _signalBus.Fire<OnHealthRestoreSignal>();
         }
     }
 }

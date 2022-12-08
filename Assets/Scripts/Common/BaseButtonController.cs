@@ -8,15 +8,17 @@ namespace Common
     {
         protected SignalBus _signalBus;
         private SoundManager _soundManager;
+        protected SaveSystem _saveSystem;
         
         [Inject]
-        public void Construct(SignalBus signalBus, SoundManager soundManager)
+        public void Construct(SignalBus signalBus, SoundManager soundManager, SaveSystem saveSystem)
         {
             _signalBus = signalBus;
             _soundManager = soundManager;
+            _saveSystem = saveSystem;
         }
 
-        private Button _button;
+        protected Button _button;
         
         protected virtual void Awake()
         {

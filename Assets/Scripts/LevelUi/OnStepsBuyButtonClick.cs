@@ -1,14 +1,14 @@
 ﻿using Common;
 using Signals.Level;
 
-namespace Level
+namespace LevelUi
 {
-    public class OnBackStepButtonClick : BaseButtonController
+    public class OnStepsBuyButtonClick : BaseButtonController
     {
         protected override void OnClick()
         {
             base.OnClick();
-            _signalBus.Fire<OnBackStepSignal>();
+            _signalBus.Fire<OnStepsRestoredSignal>();
         }
     }
 }

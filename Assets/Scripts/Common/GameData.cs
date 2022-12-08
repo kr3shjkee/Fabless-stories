@@ -7,8 +7,8 @@
         private const int DEFAULT_LEVEL_NUMBER = 1;
         private const bool DEFAULT_SOUND_MUTE = false;
         private const bool DEFAULT_MUSIC_MUTE = false;
-        private const int DEFAULT_HEALTH_VALUE = 5;
-        private const int DEFAULT_BACKSTEPS_VALUE = 5;
+        public readonly int DEFAULT_HEALTH_VALUE = 5;
+        public readonly int DEFAULT_BACKSTEPS_VALUE = 5;
         
         public int Gold;
         public int CurrentChapterNumber;

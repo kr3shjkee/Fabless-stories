@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Configs;
 using Cysharp.Threading.Tasks;
 using Signals.Level;
@@ -73,45 +74,15 @@ namespace Level
         private void SubscribeSignals()
         {
             _signalBus.Subscribe<OnElementClickSignal>(OnElementClick);
-            _signalBus.Subscribe<OnRestartSignal>(OnRestart);
-            _signalBus.Subscribe<OnBackStepSignal>(OnBackStep);
             _signalBus.Subscribe<OnElementMatchShowSignal>(ShowElementsForMatch);
         }
 
         private void UnsubscribeSignals()
         {
             _signalBus.Unsubscribe<OnElementClickSignal>(OnElementClick);
-            _signalBus.Unsubscribe<OnRestartSignal>(OnRestart);
-            _signalBus.Unsubscribe<OnBackStepSignal>(OnBackStep);
             _signalBus.Unsubscribe<OnElementMatchShowSignal>(ShowElementsForMatch);
         }
-
-        private async void OnRestart()
-        {
-            var column = _boardConfig.SizeX;
-            var row = _boardConfig.SizeY;
-            var tasks = new List<UniTask>();
-
-            foreach (var element in _elements)
-            {
-                tasks.Add(element.Disable());
-            }
-
-            await UniTask.WhenAll(tasks);
-
-            tasks.Clear();
-
-            for (int y = row - 1; y >= 0; y--)
-            {
-                for (int x = column - 1; x >= 0; x--)
-                {
-                    GenerateRandomElement(_elements[x, y], column, row);
-                    tasks.Add(_elements[x, y].Enable());
-                }
-            }
-
-            await UniTask.WhenAll(tasks);
-        }
+        
 
         private void ShowElementsForMatch()
         {
@@ -123,7 +94,7 @@ namespace Level
             }
         }
 
-        private async void OnBackStep()
+        public async void OnBackStep()
         {
             var column = _boardConfig.SizeX;
             var row = _boardConfig.SizeY;
@@ -198,7 +169,7 @@ namespace Level
                 if (elementsForCollecting.Count > 0)
                 {
                     await DisableElements(elementsForCollecting);
-                    _signalBus.Fire(new OnBoardMatchSignal(elementsForCollecting.Count));
+                    _signalBus.Fire(new OnBoardMatchSignal(elementsForCollecting[0].Key, elementsForCollecting.Count));
                     await NormalizeBoard();
                     isNeedRecheck = true;
                 }

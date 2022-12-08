@@ -1,10 +1,10 @@
 ﻿namespace Signals.Level
 {
-    public class OnScoreChangedSignal
+    public class OnGoldChangedSignal
     {
         public readonly int Value;
 
-        public OnScoreChangedSignal(int value)
+        public OnGoldChangedSignal(int value)
         {
             Value = value;
         }

@@ -1,11 +1,15 @@
-﻿namespace Signals.Level
+﻿using Level;
+
+namespace Signals.Level
 {
     public class OnBoardMatchSignal
     {
-        public readonly int Value;
-        public OnBoardMatchSignal(int value)
+        public readonly string Key;
+        public readonly int Count;
+        public OnBoardMatchSignal(string key, int count)
         {
-            Value = value;
+            Key = key;
+            Count = count;
         }
     }
 }

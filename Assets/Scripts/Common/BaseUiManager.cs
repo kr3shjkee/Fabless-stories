@@ -8,17 +8,11 @@ namespace Common
     {
         protected SignalBus _signalBus;
         protected SaveSystem _saveSystem;
-        
-        public virtual void Initialize()
-        {
-            SubscribeSignals();
-        }
 
-        public virtual void Dispose()
-        {
-            UnsubscribeSignals();
-        }
-        
+        public abstract void Initialize();
+
+        public abstract void Dispose();
+
         protected virtual void SubscribeSignals()
         {
             _signalBus.Subscribe<OnOptionsButtonClickSignal>(ShowOptionsPanel);
@@ -39,15 +33,17 @@ namespace Common
             _signalBus.Unsubscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
         }
 
-        protected abstract void ShowHealthPanel();
+        public abstract void UpdateUiValues();
+
+        public abstract void ShowHealthPanel();
         
-        protected abstract void ShowShopPanel();
+        public abstract void ShowShopPanel();
 
-        protected abstract void ShowOptionsPanel();
+        public abstract void ShowOptionsPanel();
 
-        protected abstract void ShowSoundOptionsPanel();
+        public abstract void ShowSoundOptionsPanel();
 
-        protected abstract void BackToPreviousScene();
+        public abstract void BackToPreviousScene();
 
         protected abstract void CloseCurrentPanel(OnCloseCurrentPanelSignal signal);
     }

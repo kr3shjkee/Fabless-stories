@@ -1,5 +1,6 @@
 using Configs;
 using Level;
+using LevelUi;
 using Signals.Level;
 using Signals.Ui;
 using UnityEngine;
@@ -16,8 +17,8 @@ namespace Installers.LevelScene
             Container.BindInterfacesAndSelfTo<BoardController>().AsSingle().NonLazy();
             Container.BindFactory<ElementConfigItem, ElementPosition, Element, Element.Factory>()
                 .FromComponentInNewPrefab(elementPrefab);
-            Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelUiManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
             Container.Bind<LevelUiPanelsController>().FromComponentInNewPrefab(levelUiPanelsController).AsSingle().NonLazy();
             BindLogicSignals();
             BindUiSignals();
@@ -28,10 +29,19 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnElementClickSignal>();
             Container.DeclareSignal<OnBoardMatchSignal>();
             Container.DeclareSignal<OnRestartSignal>();
-            Container.DeclareSignal<OnScoreChangedSignal>();
+            Container.DeclareSignal<OnStepsChangedSignal>();
             Container.DeclareSignal<OnElementMatchShowSignal>();
             Container.DeclareSignal<OnDoStepSignal>();
             Container.DeclareSignal<OnBackStepSignal>();
+            Container.DeclareSignal<OnHealthChangedSignal>();
+            Container.DeclareSignal<OnStepsChangedSignal>();
+            Container.DeclareSignal<OnBackStepsChangedSignal>();
+            Container.DeclareSignal<OnGoldChangedSignal>();
+            Container.DeclareSignal<OnBackStepsRestoredSignal>();
+            Container.DeclareSignal<OnHealthRestoreSignal>();
+            Container.DeclareSignal<OnTargetsChangedSignal>();
+            Container.DeclareSignal<OnStepsRestoredSignal>();
+            Container.DeclareSignal<OnLevelCompleteSignal>();
         }
 
         private void BindUiSignals()
@@ -42,6 +52,7 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnShopButtonClickSignal>();
             Container.DeclareSignal<OnOptionsButtonClickSignal>();
             Container.DeclareSignal<OnSoundOptionsButtonClickSignal>();
+            Container.DeclareSignal<OnBackStepsButtonClickSignal>();
         }
     }
 }
