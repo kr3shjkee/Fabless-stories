@@ -23,6 +23,7 @@ namespace Common
         protected virtual void Awake()
         {
             _button = GetComponent<Button>();
+            _saveSystem.LoadData();
         }
 
         protected virtual void Start()

@@ -32,12 +32,14 @@ namespace GameUi
         {
             base.SubscribeSignals();
             _signalBus.Subscribe<ComingSoonSignal>(ShowComingSoonPanel);
+            _signalBus.Subscribe<OnPlayLevelButtonClickSignal>(GoToLevel);
         }
 
         protected override void UnsubscribeSignals()
         {
             base.UnsubscribeSignals();
             _signalBus.Unsubscribe<ComingSoonSignal>(ShowComingSoonPanel);
+            _signalBus.Unsubscribe<OnPlayLevelButtonClickSignal>(GoToLevel);
         }
 
         public override void UpdateUiValues()
@@ -90,6 +92,12 @@ namespace GameUi
         public void HideGameUi()
         {
             _gameUiPanelsController.CloseUi();
+        }
+
+        private void GoToLevel()
+        {
+            _saveSystem.SaveData();
+            SceneManager.LoadScene("LevelScene");
         }
     }
 }

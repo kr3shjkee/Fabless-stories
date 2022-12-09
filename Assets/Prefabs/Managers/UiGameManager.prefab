@@ -826,7 +826,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4947934187476244746}
   m_OnClick:
     m_PersistentCalls:
@@ -843,6 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f1301d95e445f9ac158e82f1cc3ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plusImage: {fileID: 7324641947838331382}
 --- !u!1 &7324641947002439612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7324641947838331383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2249,7 +2250,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -700.00006
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6807974497377326286, guid: 604fdd62eed3e824f91f6ef22e085d05, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 604fdd62eed3e824f91f6ef22e085d05, type: 3}
 --- !u!224 &8110342689926262677 stripped
 RectTransform:
@@ -2364,7 +2366,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1591248925325201969, guid: 025595d541165454fbb2ff1ce9ff08f1, type: 3}
+    - {fileID: 1540507159934101020, guid: 025595d541165454fbb2ff1ce9ff08f1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 025595d541165454fbb2ff1ce9ff08f1, type: 3}
 --- !u!1 &3506979612465468639 stripped
 GameObject:
@@ -2634,7 +2638,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -983.33344
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1014883466459695859, guid: e02de606680229d48ac1fabb80b19281, type: 3}
+    - {fileID: 1014883465670900451, guid: e02de606680229d48ac1fabb80b19281, type: 3}
+    - {fileID: 1014883467545438241, guid: e02de606680229d48ac1fabb80b19281, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e02de606680229d48ac1fabb80b19281, type: 3}
 --- !u!224 &7827367717764093073 stripped
 RectTransform:

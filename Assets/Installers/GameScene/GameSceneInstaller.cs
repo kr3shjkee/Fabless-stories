@@ -17,20 +17,18 @@ namespace Installers.GameScene
         [SerializeField] private PlayerController playerControllerPrefab;
         public override void InstallBindings()
         {
-            InstallGameBindings();
-            BindGameSignals();
-            
-            InstallUiBindings();
-            BindUiSignals();
-        }
-
-        private void InstallGameBindings()
-        {
-            Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ChapterMapController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameUiManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
             Container.BindFactory<LevelMapConfig, MapLevelPosition, MapLevel, MapLevel.Factory>()
                 .FromComponentInNewPrefab(mapLevelPrefab);
             Container.Bind<PlayerController>().FromComponentInNewPrefab(playerControllerPrefab).AsSingle().NonLazy();
+            Container.Bind<GameUiPanelsController>().FromComponentInNewPrefab(gameUiPanelsControllerPrefab).AsSingle().NonLazy();
+            Container.BindFactory<DialogConfig, ChapterDialog, ChapterDialog.Factory>()
+                .FromComponentInNewPrefab(chapterDialogPrefab);
+            
+            BindGameSignals();
+            BindUiSignals();
         }
         
         private void BindGameSignals()
@@ -39,14 +37,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnPlayLevelButtonClickSignal>();
             Container.DeclareSignal<ComingSoonSignal>();
         }
-
-        private void InstallUiBindings()
-        {
-            Container.BindInterfacesAndSelfTo<GameUiManager>().AsSingle().NonLazy();
-            Container.Bind<GameUiPanelsController>().FromComponentInNewPrefab(gameUiPanelsControllerPrefab).AsSingle().NonLazy();
-            Container.BindFactory<DialogConfig, ChapterDialog, ChapterDialog.Factory>()
-                .FromComponentInNewPrefab(chapterDialogPrefab);
-        }
+        
 
         private void BindUiSignals()
         {

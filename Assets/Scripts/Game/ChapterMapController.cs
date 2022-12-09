@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using Configs;
 using Signals.Game;
 using UnityEngine;
@@ -14,15 +15,17 @@ namespace Game
         private readonly LevelMapConfig[] _levelMapConfigs;
         private readonly MapLevel.Factory _factory;
         private readonly SignalBus _signalBus;
+        private readonly SaveSystem _saveSystem;
 
         private MapLevel[] _levels;
         
         public MapLevel[] Levels => _levels;
 
-        public ChapterMapController(ChapterMapConfig chapterMapConfig, MapLevel.Factory factory, SignalBus signalBus)
+        public ChapterMapController(ChapterMapConfig[] chapterMapConfig, MapLevel.Factory factory, SignalBus signalBus, SaveSystem saveSystem)
         {
-            
-            _levelMapConfigs = chapterMapConfig.LevelMapConfigs;
+            _saveSystem = saveSystem;
+            _saveSystem.LoadData();
+            _levelMapConfigs = chapterMapConfig[_saveSystem.Data.CurrentChapterNumber-1].LevelMapConfigs;
             _factory = factory;
             _signalBus = signalBus;
         }

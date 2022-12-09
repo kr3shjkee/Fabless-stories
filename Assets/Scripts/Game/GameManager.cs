@@ -42,6 +42,8 @@ namespace Game
         public void Initialize()
         {
             SubscribeSignals();
+            _gameUiManager.UpdateUiValues();
+            CheckCurrentLevel();
         }
         
 
@@ -54,14 +56,12 @@ namespace Game
         {
             _signalBus.Subscribe<OnNextDialogSignal>(NextDialog);
             _signalBus.Subscribe<EndLevelMapInitializeSignal>(InitPlayer);
-            _signalBus.Subscribe<OnPlayLevelButtonClickSignal>(NextLevel);
         }
         
         private void UnsubscribeSignals()
         {
             _signalBus.Unsubscribe<OnNextDialogSignal>(NextDialog);
             _signalBus.Unsubscribe<EndLevelMapInitializeSignal>(InitPlayer);
-            _signalBus.Unsubscribe<OnPlayLevelButtonClickSignal>(NextLevel);
         }
 
         private void StartChapterDialog()
@@ -97,26 +97,46 @@ namespace Game
 
         private void InitPlayer()
         {
-            _player.Initialize(LetCurrentLevelPosition());
+            _player.Initialize(LetCurrentLevelPosition(_saveSystem.Data.IsNeedToMove));
             CheckLevelDialog();
         }
         
-        private Vector2 LetCurrentLevelPosition()
+        
+        private Vector2 LetCurrentLevelPosition(bool isNeedToMove)
         {
-            return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-1].LocalPosition;
+            if (!isNeedToMove)
+                return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-1].LocalPosition;
+            
+            return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-2].LocalPosition;
         }
 
-        public void NextLevel()
+        private void NextLevel()
         {
-            if (_saveSystem.Data.CurrentLevelNumber < _chapterMapController.Levels.Length)
+            _saveSystem.Data.IsNeedToMove = false;
+            _saveSystem.SaveData();
+            _player.MoveToNextLevel(LetCurrentLevelPosition(_saveSystem.Data.IsNeedToMove));
+            CheckLevelDialog();
+        }
+
+        private void CheckCurrentLevel()
+        {
+            var level = _saveSystem.Data.CurrentLevelNumber;
+            if (!_saveSystem.Data.IsNeedToMove &&
+                level <= _chapterMapController.Levels.Length)
             {
-                _saveSystem.Data.CurrentLevelNumber++;
-                _saveSystem.SaveData();
-                _player.MoveToNextLevel(LetCurrentLevelPosition());
-                CheckLevelDialog();
+                InitPlayer();
             }
-            else
+            else if (_saveSystem.Data.IsNeedToMove &&
+                     level <= _chapterMapController.Levels.Length)
+            {
+                InitPlayer();
+                NextLevel();
+            }
+            else if (level > _chapterMapController.Levels.Length)
+            {
+                InitPlayer();
                 _signalBus.Fire<ComingSoonSignal>();
+            }
         }
 
         private void CheckLevelDialog()

@@ -147,6 +147,7 @@ namespace Level
         private void WinLevel()
         {
             _saveSystem.Data.CurrentLevelNumber++;
+            _saveSystem.Data.IsNeedToMove = true;
             _saveSystem.SaveData();
             _levelUiManager.ShowWinPanel();
         }
