@@ -1,4 +1,5 @@
-﻿using Configs;
+﻿using Common;
+using Configs;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Signals;
@@ -13,7 +14,8 @@ namespace Level
         public class Factory : PlaceholderFactory<ElementConfigItem, ElementPosition, Element>
         {
         }
-    private const float ANIMATION_TIME = 0.5f;
+        
+        private const float ANIMATION_TIME = 0.5f;
 
         [SerializeField] private SpriteRenderer bgSpriteRender;
         [SerializeField] private SpriteRenderer iconSpriteRender;
@@ -23,6 +25,7 @@ namespace Level
 
         private ElementConfigItem _configItem;
         private SignalBus _signalBus;
+        private SoundManager _soundManager;
         
         private Animation _animation;
         
@@ -36,12 +39,14 @@ namespace Level
         private Vector3 _startScale;
 
         [Inject]
-        public void Construct(ElementConfigItem configItem, ElementPosition elementPosition, SignalBus signalBus)
+        public void Construct(ElementConfigItem configItem, ElementPosition elementPosition, SignalBus signalBus, 
+            SoundManager soundManager)
         {
             _configItem = configItem;
             _localPosition = elementPosition.LocalPosition;
             _gridPosition = elementPosition.GridPosition;
             _signalBus = signalBus;
+            _soundManager = soundManager;
         }
 
         public void Initialize()
@@ -114,6 +119,7 @@ namespace Level
 
         private void OnClick()
         {
+            _soundManager.ElementClickSoundPlay();
             _signalBus.Fire(new OnElementClickSignal(this));
         }
 

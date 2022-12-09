@@ -7,6 +7,8 @@ namespace Common
         [SerializeField] private AudioSource bgMusic;
         [SerializeField] private AudioSource buttonClickSound;
         [SerializeField] private AudioSource keyboardSound;
+        [SerializeField] private AudioSource elementClickSound;
+        [SerializeField] private AudioSource matchSound;
 
         public void IsMusicMute(bool value)
         {
@@ -31,6 +33,16 @@ namespace Common
         public void KeyboardSoundStop()
         {
             keyboardSound.Stop();
+        }
+
+        public void ElementClickSoundPlay()
+        {
+            elementClickSound.Play();
+        }
+
+        public void MatchSoundPlay()
+        {
+            matchSound.Play();
         }
     }
 }

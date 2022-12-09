@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Configs;
 using Cysharp.Threading.Tasks;
 using Signals.Level;
@@ -16,6 +17,7 @@ namespace Level
         private readonly ElementConfig _elementsConfig;
         private readonly Element.Factory _factory;
         private readonly SignalBus _signalBus;
+        private readonly SoundManager _soundManager;
 
         private Element[,] _elements;
         private DiContainer _container;
@@ -26,12 +28,13 @@ namespace Level
         private bool _isBlocked;
 
         public BoardController(BoardConfig boardConfig, ElementConfig elementsConfig, Element.Factory factory,
-            SignalBus signalBus)
+            SignalBus signalBus, SoundManager soundManager)
         {
             _boardConfig = boardConfig;
             _elementsConfig = elementsConfig;
             _factory = factory;
             _signalBus = signalBus;
+            _soundManager = soundManager;
         }
 
         public void Initialize()
@@ -168,6 +171,7 @@ namespace Level
 
                 if (elementsForCollecting.Count > 0)
                 {
+                    _soundManager.MatchSoundPlay();
                     await DisableElements(elementsForCollecting);
                     _signalBus.Fire(new OnBoardMatchSignal(elementsForCollecting[0].Key, elementsForCollecting.Count));
                     await NormalizeBoard();
