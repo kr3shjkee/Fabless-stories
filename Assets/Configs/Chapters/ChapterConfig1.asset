@@ -16,30 +16,49 @@ MonoBehaviour:
   - levelNumber: 1
     dialogs:
     - characterPosition: 0
-      characterName: qwe
+      characterName: Angie
       characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
-      characterText: qwe
+      characterText: Excuse me, what is this place?
     - characterPosition: 1
-      characterName: asd
+      characterName: Poppy
       characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
-      characterText: asd
+      characterText: Hello Angie. This is the world of fabless stories. Help us in
+        this magical world and I will help you return home.
+    - characterPosition: 0
+      characterName: Angie
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: Okay, where do we start?
+    - characterPosition: 1
+      characterName: Poppy
+      characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
+      characterText: First, get to grips with the rules of this world. Go to the
+        level and solve the puzzle.
   - levelNumber: 3
     dialogs:
     - characterPosition: 0
-      characterName: qwe2
+      characterName: Angie
       characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
-      characterText: qwe2
+      characterText: All clear! What will we do next?
     - characterPosition: 1
-      characterName: asd2
+      characterName: Poppy
       characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
-      characterText: asd2
+      characterText: Don't relax! Each next level will be more difficult! Get ready
+        to solve challenging puzzles.
+    - characterPosition: 0
+      characterName: Angie
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: Trust me! I'm not a stupid girl. I will solve all puzzles.
   - levelNumber: 5
     dialogs:
-    - characterPosition: 0
-      characterName: qwe3
-      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
-      characterText: qwe3
     - characterPosition: 1
-      characterName: asd3
+      characterName: Poppy
       characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
-      characterText: asd3
+      characterText: And here is the last level of our first world!
+    - characterPosition: 0
+      characterName: Angie
+      characterSpr: {fileID: 21300000, guid: 59ca43de83200ae42b03b670f22a7aa9, type: 3}
+      characterText: Wow, I'm so worried!
+    - characterPosition: 1
+      characterName: Poppy
+      characterSpr: {fileID: 21300000, guid: 66042c6022d2e5544adcb493c30879cc, type: 3}
+      characterText: You have already shown your skill. I'm sure you'll get it too.

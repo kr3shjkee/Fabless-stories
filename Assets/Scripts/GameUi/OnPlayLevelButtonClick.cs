@@ -7,6 +7,9 @@ namespace GameUi
     {
         protected override void OnClick()
         {
+            if (_saveSystem.Data.IsGameEnded)
+                return;
+            
             base.OnClick();
             _signalBus.Fire<OnPlayLevelButtonClickSignal>();
         }

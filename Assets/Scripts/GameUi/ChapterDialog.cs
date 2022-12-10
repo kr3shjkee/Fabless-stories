@@ -40,7 +40,7 @@ namespace GameUi
             _signalBus = signalBus;
         }
 
-        private void Start()
+        private void Awake()
         {
             _signalBus.Subscribe<OnNextButtonClickSignal>(CheckSignal);
         }

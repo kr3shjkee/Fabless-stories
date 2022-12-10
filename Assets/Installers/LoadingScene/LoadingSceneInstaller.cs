@@ -21,9 +21,6 @@ namespace Installers.LoadingScene
             Container.DeclareSignal<OnBackButtonClickSignal>();
             Container.DeclareSignal<OnExitButtonClickSignal>();
             Container.DeclareSignal<OnOptionsButtonClickSignal>();
-            Container.DeclareSignal<OnSoundOptionChangedSignal>();
-            Container.DeclareSignal<OnMusicOptionChangedSignal>();
-            Container.DeclareSignal<OnSoundOptionChangedSignal>();
         }
     }
 }

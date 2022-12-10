@@ -20,18 +20,20 @@ namespace LevelUi
         private LevelCfg _currentLevelConfig;
         
         public LevelUiManager(SignalBus signalBus, SaveSystem saveSystem, LevelUiPanelsController levelUiPanelsController, 
-            LevelConfigs levelConfigs)
+            LevelConfigs levelConfigs, SoundManager soundManager)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _levelUiPanelsController = levelUiPanelsController;
             _levelConfigs = levelConfigs;
+            _soundManager = soundManager;
         }
 
 
         public override void Initialize()
         {
             _saveSystem.LoadData();
+            LoadSoundOptions();
             SubscribeSignals();
             UpdateUiValues();
         }

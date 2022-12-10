@@ -10,16 +10,19 @@ namespace GameUi
     {
         private readonly GameUiPanelsController _gameUiPanelsController;
 
-        public GameUiManager(SignalBus signalBus, SaveSystem saveSystem, GameUiPanelsController gameUiPanelsController)
+        public GameUiManager(SignalBus signalBus, SaveSystem saveSystem, GameUiPanelsController gameUiPanelsController,
+            SoundManager soundManager)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _gameUiPanelsController = gameUiPanelsController;
+            _soundManager = soundManager;
         }
 
         public override void Initialize()
         {
             _saveSystem.LoadData();
+            LoadSoundOptions();
             SubscribeSignals();
         }
 

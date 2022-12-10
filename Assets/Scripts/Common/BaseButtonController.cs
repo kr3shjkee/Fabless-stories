@@ -1,3 +1,4 @@
+using Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,7 +10,7 @@ namespace Common
         protected SignalBus _signalBus;
         private SoundManager _soundManager;
         protected SaveSystem _saveSystem;
-        
+
         [Inject]
         public void Construct(SignalBus signalBus, SoundManager soundManager, SaveSystem saveSystem)
         {

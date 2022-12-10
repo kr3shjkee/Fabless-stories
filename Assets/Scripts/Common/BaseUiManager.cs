@@ -1,6 +1,9 @@
 ﻿using System;
+using Signals.Loading;
 using Signals.Ui;
 using Zenject;
+using OnExitButtonClickSignal = Signals.Ui.OnExitButtonClickSignal;
+using OnOptionsButtonClickSignal = Signals.Ui.OnOptionsButtonClickSignal;
 
 namespace Common
 {
@@ -8,6 +11,7 @@ namespace Common
     {
         protected SignalBus _signalBus;
         protected SaveSystem _saveSystem;
+        protected SoundManager _soundManager;
 
         public abstract void Initialize();
 
@@ -21,6 +25,8 @@ namespace Common
             _signalBus.Subscribe<OnShopButtonClickSignal>(ShowShopPanel);
             _signalBus.Subscribe<OnExitButtonClickSignal>(BackToPreviousScene);
             _signalBus.Subscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
+            _signalBus.Subscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
+            _signalBus.Subscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
         }
 
         protected virtual void UnsubscribeSignals()
@@ -31,6 +37,8 @@ namespace Common
             _signalBus.Unsubscribe<OnShopButtonClickSignal>(ShowShopPanel);
             _signalBus.Unsubscribe<OnExitButtonClickSignal>(BackToPreviousScene);
             _signalBus.Unsubscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
+            _signalBus.Unsubscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
+            _signalBus.Unsubscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
         }
 
         public abstract void UpdateUiValues();
@@ -46,5 +54,23 @@ namespace Common
         public abstract void BackToPreviousScene();
 
         protected abstract void CloseCurrentPanel(OnCloseCurrentPanelSignal signal);
+
+        protected void SaveSoundOptions(OnSoundOptionChangedSignal signal)
+        {
+            _saveSystem.Data.IsSoundMute = signal.IsMute;
+            _saveSystem.SaveData();
+        }
+        
+        protected void SaveMusicOptions(OnMusicOptionChangedSignal signal)
+        {
+            _saveSystem.Data.IsMusicMute = signal.IsMute;
+            _saveSystem.SaveData();
+        }
+
+        protected void LoadSoundOptions()
+        {
+            _soundManager.IsSoundMute(_saveSystem.Data.IsSoundMute);
+            _soundManager.IsMusicMute(_saveSystem.Data.IsMusicMute);
+        }
     }
 }

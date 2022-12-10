@@ -55,13 +55,13 @@ namespace Game
         private void SubscribeSignals()
         {
             _signalBus.Subscribe<OnNextDialogSignal>(NextDialog);
-            _signalBus.Subscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            //_signalBus.Subscribe<EndLevelMapInitializeSignal>(InitPlayer);
         }
         
         private void UnsubscribeSignals()
         {
             _signalBus.Unsubscribe<OnNextDialogSignal>(NextDialog);
-            _signalBus.Unsubscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            //_signalBus.Unsubscribe<EndLevelMapInitializeSignal>(InitPlayer);
         }
 
         private void StartChapterDialog()
@@ -98,7 +98,6 @@ namespace Game
         private void InitPlayer()
         {
             _player.Initialize(LetCurrentLevelPosition(_saveSystem.Data.IsNeedToMove));
-            CheckLevelDialog();
         }
         
         
@@ -125,6 +124,7 @@ namespace Game
                 level <= _chapterMapController.Levels.Length)
             {
                 InitPlayer();
+                CheckLevelDialog();
             }
             else if (_saveSystem.Data.IsNeedToMove &&
                      level <= _chapterMapController.Levels.Length)
@@ -134,6 +134,8 @@ namespace Game
             }
             else if (level > _chapterMapController.Levels.Length)
             {
+                _saveSystem.Data.IsGameEnded = true;
+                _saveSystem.SaveData();
                 InitPlayer();
                 _signalBus.Fire<ComingSoonSignal>();
             }

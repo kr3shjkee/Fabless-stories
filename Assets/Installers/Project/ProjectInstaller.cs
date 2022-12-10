@@ -1,4 +1,5 @@
 using Common;
+using Game;
 using Loading;
 using Signals.Loading;
 using UnityEngine;
@@ -19,5 +20,7 @@ public class ProjectInstaller : MonoInstaller
     private void BindSignals()
     {
         Container.DeclareSignal<OnAgreeButtonClickSignal>();
+        Container.DeclareSignal<OnSoundOptionChangedSignal>();
+        Container.DeclareSignal<OnMusicOptionChangedSignal>();
     }
 }

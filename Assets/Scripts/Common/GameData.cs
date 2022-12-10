@@ -10,6 +10,7 @@
         public readonly int DEFAULT_HEALTH_VALUE = 5;
         public readonly int DEFAULT_BACKSTEPS_VALUE = 5;
         public readonly bool DEFAUL_IS_NEED_TO_MOVE = false;
+        public readonly bool DEFAULT_IS_GAME_ENDED = false;
         
         public int Gold;
         public int CurrentChapterNumber;
@@ -19,6 +20,7 @@
         public bool IsSoundMute;
         public bool IsMusicMute;
         public bool IsNeedToMove;
+        public bool IsGameEnded;
 
         public GameData()
         {
@@ -30,6 +32,7 @@
             IsMusicMute = DEFAULT_MUSIC_MUTE;
             HealthValue = DEFAULT_HEALTH_VALUE;
             IsNeedToMove = DEFAUL_IS_NEED_TO_MOVE;
+            IsGameEnded = DEFAULT_IS_GAME_ENDED;
         }
     }
 }

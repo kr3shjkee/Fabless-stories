@@ -24,6 +24,7 @@ namespace Level
         private readonly LevelUiManager _levelUiManager;
         private readonly BoardController _boardController;
         private readonly LevelConfigs _levelConfigs;
+        private readonly SoundManager _soundManager;
         
         private bool _isNeedToCancel;
         private int _currentSteps;
@@ -35,13 +36,14 @@ namespace Level
         
 
         public LevelManager(SignalBus signalBus, SaveSystem saveSystem, BoardController boardController, 
-            LevelUiManager levelUiManager, LevelConfigs levelConfigs)
+            LevelUiManager levelUiManager, LevelConfigs levelConfigs, SoundManager soundManager)
         {
             _signalBus = signalBus;
             _saveSystem = saveSystem;
             _boardController = boardController;
             _levelUiManager = levelUiManager;
             _levelConfigs = levelConfigs;
+            _soundManager = soundManager;
         }
         
         public void Initialize()
@@ -150,6 +152,7 @@ namespace Level
             _saveSystem.Data.IsNeedToMove = true;
             _saveSystem.SaveData();
             _levelUiManager.ShowWinPanel();
+            _soundManager.WinSoundPlay();
         }
 
 

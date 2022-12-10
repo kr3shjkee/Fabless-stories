@@ -33,7 +33,7 @@ namespace Game
         public void Initialize()
         {
             GenerateMapLevels();
-            _signalBus.Fire<EndLevelMapInitializeSignal>();
+            //_signalBus.Fire<EndLevelMapInitializeSignal>();
         }
 
         public void Dispose()
