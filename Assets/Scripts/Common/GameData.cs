@@ -7,10 +7,13 @@
         private const int DEFAULT_LEVEL_NUMBER = 1;
         private const bool DEFAULT_SOUND_MUTE = false;
         private const bool DEFAULT_MUSIC_MUTE = false;
+        private readonly bool DEFAUL_IS_NEED_TO_MOVE = false;
+        private readonly bool DEFAULT_IS_GAME_ENDED = false;
+        
         public readonly int DEFAULT_HEALTH_VALUE = 5;
         public readonly int DEFAULT_BACKSTEPS_VALUE = 5;
-        public readonly bool DEFAUL_IS_NEED_TO_MOVE = false;
-        public readonly bool DEFAULT_IS_GAME_ENDED = false;
+        public readonly string DEFAULT_HEALTH_TIMER = "";
+        
         
         public int Gold;
         public int CurrentChapterNumber;
@@ -21,6 +24,7 @@
         public bool IsMusicMute;
         public bool IsNeedToMove;
         public bool IsGameEnded;
+        public string HealthTimer;
 
         public GameData()
         {
@@ -33,6 +37,7 @@
             HealthValue = DEFAULT_HEALTH_VALUE;
             IsNeedToMove = DEFAUL_IS_NEED_TO_MOVE;
             IsGameEnded = DEFAULT_IS_GAME_ENDED;
+            HealthTimer = DEFAULT_HEALTH_TIMER;
         }
     }
 }
