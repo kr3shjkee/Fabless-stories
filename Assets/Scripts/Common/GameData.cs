@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using System.Collections.Generic;
+
+namespace Common
 {
     public class GameData
     {
@@ -13,8 +15,9 @@
         public readonly int DEFAULT_HEALTH_VALUE = 5;
         public readonly int DEFAULT_BACKSTEPS_VALUE = 5;
         public readonly string DEFAULT_HEALTH_TIMER = "";
-        
-        
+        public Dictionary<int, string> ShopItemsTimers;
+
+
         public int Gold;
         public int CurrentChapterNumber;
         public int CurrentLevelNumber;
@@ -38,6 +41,7 @@
             IsNeedToMove = DEFAUL_IS_NEED_TO_MOVE;
             IsGameEnded = DEFAULT_IS_GAME_ENDED;
             HealthTimer = DEFAULT_HEALTH_TIMER;
+            ShopItemsTimers = new Dictionary<int, string>();
         }
     }
 }

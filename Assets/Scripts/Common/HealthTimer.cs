@@ -6,6 +6,7 @@ namespace Common
 {
     public class HealthTimer : BaseTimer
     {
+        [SerializeField] private int delayInHours;
         protected override void Start()
         {
             base.Start();

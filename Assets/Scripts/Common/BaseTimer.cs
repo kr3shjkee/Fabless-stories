@@ -1,5 +1,4 @@
 ﻿using System;
-using GameUi;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -8,7 +7,6 @@ namespace Common
 {
     public abstract class BaseTimer : MonoBehaviour
     {
-        [SerializeField] protected int delayInHours;
         [SerializeField] protected TextMeshProUGUI timerText;
         
         protected SaveSystem _saveSystem;
