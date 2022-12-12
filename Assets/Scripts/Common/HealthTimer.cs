@@ -1,4 +1,5 @@
 ﻿using System;
+using Signals.Ui;
 using UnityEngine;
 
 namespace Common
@@ -8,6 +9,8 @@ namespace Common
         protected override void Start()
         {
             base.Start();
+            var currentTime = DateTime.Now;
+            _targetTime = currentTime.AddHours(delayInHours);
             if (_saveSystem.Data.HealthTimer != _saveSystem.Data.DEFAULT_HEALTH_TIMER)
             {
                 timerText.gameObject.SetActive(true);
@@ -20,11 +23,12 @@ namespace Common
         {
             if (_saveSystem.Data.HealthValue < _saveSystem.Data.DEFAULT_HEALTH_VALUE)
             {
-                var currentTime = DateTime.Now;
-                _targetTime = currentTime.AddHours(delayInHours);
                 CheckTime();
-                var time = _targetTime - DateTime.Now;
-                timerText.text = time.ToString();
+                TimeSpan time = _targetTime - DateTime.Now;
+                var hours = time.Hours.ToString() + ":";
+                var mins = time.Minutes.ToString() + ":";
+                var secs = time.Seconds.ToString();
+                timerText.text = hours + mins + secs;
             }
         }
 
@@ -47,7 +51,7 @@ namespace Common
                 _saveSystem.Data.HealthValue = _saveSystem.Data.DEFAULT_HEALTH_VALUE;
                 _saveSystem.Data.HealthTimer = _saveSystem.Data.DEFAULT_HEALTH_TIMER;
                 _saveSystem.SaveData();
-                _gameUiManager.UpdateUiValues();
+                _signalBus.Fire<OnUpdateUiValuesSignal>();
             }
         }
     }

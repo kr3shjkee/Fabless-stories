@@ -27,6 +27,7 @@ namespace Common
             _signalBus.Subscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
             _signalBus.Subscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
             _signalBus.Subscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
+            _signalBus.Subscribe<OnUpdateUiValuesSignal>(UpdateUiValues);
         }
 
         protected virtual void UnsubscribeSignals()
@@ -39,6 +40,7 @@ namespace Common
             _signalBus.Unsubscribe<OnCloseCurrentPanelSignal>(CloseCurrentPanel);
             _signalBus.Unsubscribe<OnSoundOptionChangedSignal>(SaveSoundOptions);
             _signalBus.Unsubscribe<OnMusicOptionChangedSignal>(SaveMusicOptions);
+            _signalBus.Unsubscribe<OnUpdateUiValuesSignal>(UpdateUiValues);
         }
 
         public abstract void UpdateUiValues();

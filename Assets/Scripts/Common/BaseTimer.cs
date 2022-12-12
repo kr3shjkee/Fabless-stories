@@ -12,15 +12,15 @@ namespace Common
         [SerializeField] protected TextMeshProUGUI timerText;
         
         protected SaveSystem _saveSystem;
-        protected GameUiManager _gameUiManager;
+        protected SignalBus _signalBus;
 
         protected DateTime _targetTime;
         
         [Inject]
-        public virtual void Construct(SaveSystem saveSystem, GameUiManager gameUiManager)
+        public virtual void Construct(SaveSystem saveSystem, SignalBus signalBus)
         {
             _saveSystem = saveSystem;
-            _gameUiManager = gameUiManager;
+            _signalBus = signalBus;
         }
 
         protected virtual void Start()

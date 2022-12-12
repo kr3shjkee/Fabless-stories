@@ -53,6 +53,7 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnOptionsButtonClickSignal>();
             Container.DeclareSignal<OnSoundOptionsButtonClickSignal>();
             Container.DeclareSignal<OnBackStepsButtonClickSignal>();
+            Container.DeclareSignal<OnUpdateUiValuesSignal>();
         }
     }
 }

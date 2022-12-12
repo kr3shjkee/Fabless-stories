@@ -49,6 +49,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnSoundOptionsButtonClickSignal>();
             Container.DeclareSignal<OnNextButtonClickSignal>();
             Container.DeclareSignal<OnNextDialogSignal>();
+            Container.DeclareSignal<OnUpdateUiValuesSignal>();
         }
         
     }
