@@ -2,11 +2,11 @@
 
 namespace Signals.Ui
 {
-    public class OnAddShopItemToListSignal
+    public class OnShopElementClickSignal
     {
         public readonly ShopItem Item;
         
-        public OnAddShopItemToListSignal(ShopItem item)
+        public OnShopElementClickSignal(ShopItem item)
         {
            Item = item;
         }

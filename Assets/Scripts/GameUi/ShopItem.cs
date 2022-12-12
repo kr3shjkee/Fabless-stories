@@ -38,7 +38,7 @@ namespace GameUi
             _itemConfig = itemConfig;
         }
 
-        private void Start()
+        private void OnEnable()
         {
             _signalBus.Subscribe<OnInitShopItemsSignal>(Init);
         }
@@ -61,19 +61,22 @@ namespace GameUi
             cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes.ToString() + "m";
             selectedBg.gameObject.SetActive(false);
             itemSprite.sprite = _itemConfig.Sprite;
-            _signalBus.Fire(new OnAddShopItemToListSignal(this));
         }
 
         private void OnClick()
         {
             Debug.Log(_itemConfig.ID);
+            _signalBus.Fire(new OnShopElementClickSignal(this));
         }
         
         public void SetSelected(bool isSelected)
         {
-            selectedBg.enabled = isSelected;
+            selectedBg.gameObject.SetActive(isSelected);
         }
 
-
+        public void DestroyItem()
+        {
+            Destroy(gameObject);
+        }
     }
 }

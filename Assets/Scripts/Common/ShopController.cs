@@ -14,7 +14,7 @@ namespace Common
         private ShopItemConfig _shopItemConfig;
         private GameUiPanelsController _gameUiPanelsController;
 
-        private List<ShopItem> _items;
+        private List<ShopItem> _items = new List<ShopItem>();
 
         [Inject]
         public ShopController(SignalBus signalBus, ShopItemConfig shopItemConfig, ShopItem.Factory factory, GameUiPanelsController gameUiPanelsController)
@@ -28,24 +28,45 @@ namespace Common
         
         public void Initialize()
         {
-            _signalBus.Subscribe<OnAddShopItemToListSignal>(TakeShopItem);
-            
-            for (int i = 0; i < _shopItemConfig.Items.Length; i++)
-            {
-                var item = _factory.Create(_shopItemConfig.Items[i]).gameObject;
-                item.transform.SetParent(_gameUiPanelsController.gameObject.transform);
-            }
-            _signalBus.Fire<OnInitShopItemsSignal>();
+            _signalBus.Subscribe<OnShopPanelsOpenSignal>(CreateShopItems);
+            _signalBus.Subscribe<OnShopElementClickSignal>(ShowClickedItem);
         }
 
         public void Dispose()
         {
-            _signalBus.Unsubscribe<OnAddShopItemToListSignal>(TakeShopItem);
+            _signalBus.Unsubscribe<OnShopPanelsOpenSignal>(CreateShopItems);
+            _signalBus.Unsubscribe<OnShopElementClickSignal>(ShowClickedItem);
+        }
+        
+
+        private void CreateShopItems()
+        {
+            foreach (var element in _items)
+            {
+                element.DestroyItem();
+            }
+
+            _items.Clear();
+            
+            for (int i = 0; i < _shopItemConfig.Items.Length; i++)
+            {
+                var itemGameObject = _factory.Create(_shopItemConfig.Items[i]).gameObject;
+                itemGameObject.transform.SetParent(_gameUiPanelsController.gameObject.transform);
+                var item = itemGameObject.GetComponent<ShopItem>();
+                _items.Add(item);
+            }
+            _signalBus.Fire<OnInitShopItemsSignal>();
         }
 
-        private void TakeShopItem(OnAddShopItemToListSignal signal)
+        private void ShowClickedItem(OnShopElementClickSignal signal)
         {
-            _items.Add(signal.Item);
+            foreach (var item in _items)
+            {
+                item.SetSelected(false);
+            }
+
+            var clickedItem = signal.Item;
+            clickedItem.SetSelected(true);
         }
     }
 }

@@ -59,6 +59,7 @@ namespace GameUi
         public override void ShowShopPanel()
         {
             _gameUiPanelsController.ShowShopPanel();
+            _signalBus.Fire<OnShopPanelsOpenSignal>();
         }
 
         public override void ShowOptionsPanel()
