@@ -2,13 +2,21 @@
 
 namespace Configs
 {
-    [CreateAssetMenu(fileName = "ShopItem", menuName = "Configs/Shop/ShopItemConfig", order = 0)]
+    [CreateAssetMenu(fileName = "ShopItemConfig", menuName = "Configs/ShopItemConfig", order = 0)]
     public class ShopItemConfig : ScriptableObject
+    {
+        [SerializeField] private ItemConfig[] items;
+
+        public ItemConfig[] Items => items;
+    }
+
+    [System.Serializable]
+    public class ItemConfig
     {
         [SerializeField] private string id;
         [SerializeField] private Sprite sprite;
         [SerializeField] private uint priceValue;
-        [SerializeField] private float cooldown;
+        [SerializeField] private float cooldownInMinutes;
 
         public string ID => id;
 
@@ -16,6 +24,6 @@ namespace Configs
 
         public uint PriceValue => priceValue;
 
-        public float Cooldown => cooldown;
+        public float CooldownInMinutes => cooldownInMinutes;
     }
 }

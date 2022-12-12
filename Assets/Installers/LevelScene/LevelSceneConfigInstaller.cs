@@ -11,9 +11,10 @@ namespace Installers.LevelScene
         [SerializeField] private ElementConfig elementsConfig;
         [SerializeField] private BoardConfig boardConfig;
         [SerializeField] private LevelConfigs levelConfigs;
+        [SerializeField] private ShopItemConfig shopItemConfig;
         public override void InstallBindings()
         {
-            Container.BindInstances(elementsConfig, boardConfig, levelConfigs);
+            Container.BindInstances(elementsConfig, boardConfig, levelConfigs, shopItemConfig);
         }
     }
 }

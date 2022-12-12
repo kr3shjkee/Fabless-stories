@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -549,6 +549,7 @@ MonoBehaviour:
   chapterDialogPrefab: {fileID: 438017359820333512, guid: bc600254d69fd1d4f98639bee94441e5, type: 3}
   mapLevelPrefab: {fileID: 4021255337289112021, guid: 998cd46619428ea42880c0bfe6352cdc, type: 3}
   playerControllerPrefab: {fileID: 6009445742798836546, guid: 36b2faa575a8eba4c964944d1f2fcf49, type: 3}
+  shopItemPrefab: {fileID: 1649221445076590714, guid: 162b085746b5760499e846f46b3cce60, type: 3}
 --- !u!114 &2008939177
 MonoBehaviour:
   m_ObjectHideFlags: 0

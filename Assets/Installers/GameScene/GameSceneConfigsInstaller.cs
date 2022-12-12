@@ -9,10 +9,10 @@ namespace Installers.GameScene
     {
         [SerializeField] private ChapterConfig chapterConfigs;
         [SerializeField] private ChapterMapConfig[] chapterMapConfigs;
+        [SerializeField] private ShopItemConfig shopItemConfig;
         public override void InstallBindings()
         {
-            Container.BindInstance(chapterConfigs);
-            Container.BindInstance(chapterMapConfigs);
+            Container.BindInstances(chapterConfigs, chapterMapConfigs, shopItemConfig);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Common;
 using Configs;
 using Game;
 using GameUi;
@@ -15,6 +16,7 @@ namespace Installers.GameScene
         [SerializeField] private ChapterDialog chapterDialogPrefab;
         [SerializeField] private MapLevel mapLevelPrefab;
         [SerializeField] private PlayerController playerControllerPrefab;
+        [SerializeField] private ShopItem shopItemPrefab;
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ChapterMapController>().AsSingle().NonLazy();
@@ -26,6 +28,10 @@ namespace Installers.GameScene
             Container.Bind<GameUiPanelsController>().FromComponentInNewPrefab(gameUiPanelsControllerPrefab).AsSingle().NonLazy();
             Container.BindFactory<DialogConfig, ChapterDialog, ChapterDialog.Factory>()
                 .FromComponentInNewPrefab(chapterDialogPrefab);
+            
+            Container.BindFactory<ItemConfig, ShopItem, ShopItem.Factory>()
+                .FromComponentInNewPrefab(shopItemPrefab);
+            Container.BindInterfacesAndSelfTo<ShopController>().AsSingle().NonLazy();
             
             BindGameSignals();
             BindUiSignals();
@@ -50,6 +56,8 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnNextButtonClickSignal>();
             Container.DeclareSignal<OnNextDialogSignal>();
             Container.DeclareSignal<OnUpdateUiValuesSignal>();
+            Container.DeclareSignal<OnInitShopItemsSignal>();
+            Container.DeclareSignal<OnAddShopItemToListSignal>();
         }
         
     }

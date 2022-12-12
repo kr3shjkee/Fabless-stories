@@ -484,19 +484,16 @@ namespace Level
                         {
                             elementForShow = _elements[x + 2, y + 1];
                             return elementForShow;
-                            break;
                         }
                         else if (y-1 >= 0 && x+2<column && _elements[x + 2, y - 1].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x + 2, y - 1];
                             return elementForShow;
-                            break;
                         }
                         else if (x + 3<column && _elements[x + 3, y].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x+3, y];
                             return elementForShow;
-                            break;
                         }
                     }
                     else if (y + 1<row && _elements[x, y + 1].Key == _elements[x, y].Key)
@@ -505,19 +502,16 @@ namespace Level
                         {
                             elementForShow = _elements[x + 1, y + 2];
                             return elementForShow;
-                            break;
                         }
                         else if (x - 1>=0 && y + 2<row && _elements[x - 1, y + 2].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x - 1, y + 2];
                             return elementForShow;
-                            break;
                         }
                         else if (y + 3<row && _elements[x, y + 3].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x, y+3];
                             return elementForShow;
-                            break;
                         }
                     }
                     else if (x + 2<column && _elements[x + 2, y].Key == _elements[x, y].Key)
@@ -526,19 +520,16 @@ namespace Level
                         {
                             elementForShow = _elements[x + 1, y + 1];
                             return elementForShow;
-                            break;
                         }
                         else if (x + 1<column && y - 1>=0 && _elements[x + 1, y - 1].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x + 1, y - 1];
                             return elementForShow;
-                            break;
                         }
                         else if (x + 3<column && _elements[x + 3, y].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x, y];
                             return elementForShow;
-                            break;
                         }
                     }
                     else if (y + 2<row && _elements[x, y + 2].Key == _elements[x, y].Key)
@@ -547,19 +538,16 @@ namespace Level
                         {
                             elementForShow = _elements[x + 1, y + 1];
                             return elementForShow;
-                            break;
                         }
                         else if (x + 1<column && y - 1>=0 && _elements[x + 1, y - 1].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x + 1, y - 1];
                             return elementForShow;
-                            break;
                         }
                         else if (y + 3<row && _elements[x, y + 3].Key == _elements[x, y].Key)
                         {
                             elementForShow = _elements[x, y];
                             return elementForShow;
-                            break;
                         }
                     }
                 }

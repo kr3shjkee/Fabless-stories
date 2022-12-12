@@ -1,4 +1,5 @@
 using Configs;
+using GameUi;
 using Level;
 using LevelUi;
 using Signals.Level;
@@ -12,6 +13,7 @@ namespace Installers.LevelScene
     {
         [SerializeField] private Element elementPrefab;
         [SerializeField] private LevelUiPanelsController levelUiPanelsController;
+        [SerializeField] private ShopItem shopItemPrefab;
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<BoardController>().AsSingle().NonLazy();
@@ -20,6 +22,8 @@ namespace Installers.LevelScene
             Container.BindInterfacesAndSelfTo<LevelUiManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
             Container.Bind<LevelUiPanelsController>().FromComponentInNewPrefab(levelUiPanelsController).AsSingle().NonLazy();
+            Container.BindFactory<ItemConfig, ShopItem, ShopItem.Factory>()
+                .FromComponentInNewPrefab(shopItemPrefab);
             BindLogicSignals();
             BindUiSignals();
         }
