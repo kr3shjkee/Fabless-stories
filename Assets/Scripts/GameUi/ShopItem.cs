@@ -29,7 +29,15 @@ namespace GameUi
         private SignalBus _signalBus;
         private ItemConfig _itemConfig;
         
-        public bool isLocked;
+        private bool _isLocked;
+        private bool _isSelected;
+        private int _price;
+
+        public bool IsLocked => _isLocked;
+
+        public bool IsSelected => _isSelected;
+
+        public int Price => _price;
 
         [Inject]
         public void Construct(SignalBus signalBus, ItemConfig itemConfig)
@@ -57,21 +65,26 @@ namespace GameUi
             _button = GetComponentInChildren<Button>();
             
             _button.onClick.AddListener(OnClick);
-            priceValue.text = _itemConfig.PriceValue.ToString();
+            _price = (int)_itemConfig.PriceValue;
+            priceValue.text = Price.ToString();
             cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes.ToString() + "m";
             selectedBg.gameObject.SetActive(false);
             itemSprite.sprite = _itemConfig.Sprite;
+            _isSelected = false;
         }
 
         private void OnClick()
         {
-            Debug.Log(_itemConfig.ID);
+            if (_isLocked)
+                return;
+            
             _signalBus.Fire(new OnShopElementClickSignal(this));
         }
         
         public void SetSelected(bool isSelected)
         {
             selectedBg.gameObject.SetActive(isSelected);
+            _isSelected = isSelected;
         }
 
         public void DestroyItem()

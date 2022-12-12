@@ -59,6 +59,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnInitShopItemsSignal>();
             Container.DeclareSignal<OnShopElementClickSignal>();
             Container.DeclareSignal<OnShopPanelsOpenSignal>();
+            Container.DeclareSignal<OnShopItemBuyClick>();
         }
         
     }
