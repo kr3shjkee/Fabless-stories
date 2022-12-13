@@ -12,7 +12,7 @@ namespace GameUi
 {
     public class ShopItem : MonoBehaviour
     {
-        public class Factory : PlaceholderFactory<ItemConfig,  ShopItem>
+        public class Factory : PlaceholderFactory<ItemConfig, ShopItem>
         {
         }
 
@@ -27,7 +27,7 @@ namespace GameUi
         private GameObject _parent;
 
         private SignalBus _signalBus;
-        private ItemConfig _itemConfig;
+        public  ItemConfig _itemConfig;
         
         private bool _isLocked;
         private bool _isSelected;
@@ -49,12 +49,16 @@ namespace GameUi
         private void OnEnable()
         {
             _signalBus.Subscribe<OnInitShopItemsSignal>(Init);
+            _signalBus.Subscribe<OnSetDefaultItemSignal>(SetDefaultParamsFromSignal);
+            _signalBus.Subscribe<DoLockShopItemSignal>(DoLock);
         }
         
          
         private void OnDestroy()
         {
             _signalBus.Unsubscribe<OnInitShopItemsSignal>(Init);
+            _signalBus.Unsubscribe<OnSetDefaultItemSignal>(SetDefaultParamsFromSignal);
+            _signalBus.Unsubscribe<DoLockShopItemSignal>(DoLock);
             _button.onClick.RemoveListener(OnClick);
         }
         
@@ -65,12 +69,7 @@ namespace GameUi
             _button = GetComponentInChildren<Button>();
             
             _button.onClick.AddListener(OnClick);
-            _price = (int)_itemConfig.PriceValue;
-            priceValue.text = Price.ToString();
-            cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes.ToString() + "m";
-            selectedBg.gameObject.SetActive(false);
-            itemSprite.sprite = _itemConfig.Sprite;
-            _isSelected = false;
+            SetDefaultParams();
         }
 
         private void OnClick()
@@ -90,6 +89,32 @@ namespace GameUi
         public void DestroyItem()
         {
             Destroy(gameObject);
+        }
+
+        private void SetDefaultParams()
+        {
+            _price = (int)_itemConfig.PriceValue;
+            priceValue.text = Price.ToString();
+            cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes + "m";
+            selectedBg.gameObject.SetActive(false);
+            itemSprite.sprite = _itemConfig.Sprite;
+            _isSelected = false;
+            _isLocked = false;
+        }
+
+        private void SetDefaultParamsFromSignal(OnSetDefaultItemSignal signal)
+        {
+            if (signal.Key.ToString() == _itemConfig.ID)
+            {
+                cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes + "m";
+                _isLocked = false;
+            }
+        }
+
+        private void DoLock(DoLockShopItemSignal signal)
+        {
+            if (_itemConfig.ID == signal.Key.ToString())
+                _isLocked = true;
         }
     }
 }

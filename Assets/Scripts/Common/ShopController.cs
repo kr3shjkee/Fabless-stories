@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Common
 {
-    public class ShopController : IInitializable, IDisposable
+    public class ShopController : IInitializable, IDisposable, ITickable
     {
         private ShopItem.Factory _factory;
         private SignalBus _signalBus;
@@ -17,7 +17,7 @@ namespace Common
         private SaveSystem _saveSystem;
         private GameUiManager _gameUiManager;
 
-        private List<ShopItem> _items = new List<ShopItem>();
+        private List<ShopItem> _items;
 
         [Inject]
         public ShopController(SignalBus signalBus, ShopItemConfig shopItemConfig, ShopItem.Factory factory, 
@@ -85,7 +85,13 @@ namespace Common
                 _saveSystem.SaveData();
                 _gameUiManager.UpdateUiValues();
                 selectedItem.SetSelected(false);
+                _signalBus.Fire(new OnShopItemTimerStartSignal(Int32.Parse(selectedItem._itemConfig.ID), (int)selectedItem._itemConfig.CooldownInMinutes));
             }
+        }
+
+        public void Tick()
+        {
+            
         }
     }
 }

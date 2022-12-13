@@ -58,7 +58,11 @@ MonoBehaviour:
   itemSprite: {fileID: 6039529105591804120}
   priceValue: {fileID: 8893595708593943708}
   cooldownValue: {fileID: 1609818506279735557}
-  isLocked: 0
+  _itemConfig:
+    id: 
+    sprite: {fileID: 0}
+    priceValue: 0
+    cooldownInMinutes: 0
 --- !u!1 &1910134438252190621
 GameObject:
   m_ObjectHideFlags: 0
