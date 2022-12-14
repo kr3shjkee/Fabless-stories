@@ -76,7 +76,7 @@ namespace GameUi
         
         private void Init()
         {
-            //_saveSystem.LoadData();
+            _saveSystem.LoadData();
             
             _parent = FindObjectOfType<ShopItemsParent>().gameObject;
             gameObject.transform.SetParent(_parent.transform);
@@ -84,7 +84,7 @@ namespace GameUi
             _button.onClick.AddListener(OnClick);
             SetDefaultParams();
             
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
+            if (_saveSystem.TimersData.ShopItemsTimers.ContainsKey(_itemConfig.ID))
                 StartTimer();
         }
 
@@ -104,10 +104,10 @@ namespace GameUi
 
         public void DestroyItem()
         {
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
+            if (_saveSystem.TimersData.ShopItemsTimers.ContainsKey(_itemConfig.ID))
             {
-                _saveSystem.Data.ShopItemsTimers.Remove(_itemConfig.ID);
-                _saveSystem.Data.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
+                _saveSystem.TimersData.ShopItemsTimers.Remove(_itemConfig.ID);
+                _saveSystem.TimersData.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
                 _saveSystem.SaveData();
             }
             Destroy(gameObject);
@@ -135,14 +135,14 @@ namespace GameUi
         {
             var currentTime = DateTime.Now;
             _targetTime = currentTime.AddMinutes(_itemConfig.CooldownInMinutes);
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
+            if (_saveSystem.TimersData.ShopItemsTimers.ContainsKey(_itemConfig.ID))
             {
-                _targetTime = DateTime.Parse(_saveSystem.Data.ShopItemsTimers[_itemConfig.ID]);
+                _targetTime = DateTime.Parse(_saveSystem.TimersData.ShopItemsTimers[_itemConfig.ID]);
                 CheckTime();
             }
             else
             {
-                _saveSystem.Data.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
+                _saveSystem.TimersData.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
                 _saveSystem.SaveData();
             }
             DoLock();
@@ -154,7 +154,7 @@ namespace GameUi
 
             if (time.Seconds < 0)
             {
-                _saveSystem.Data.ShopItemsTimers.Remove(_itemConfig.ID);
+                _saveSystem.TimersData.ShopItemsTimers.Remove(_itemConfig.ID);
                 _saveSystem.SaveData();
                 SetDefaultParams();
             }

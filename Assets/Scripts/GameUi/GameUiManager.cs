@@ -82,7 +82,7 @@ namespace GameUi
         public override void CloseShopPanel()
         {
             _gameUiPanelsController.CloseShopPanel();
-            foreach (var item in _saveSystem.Data.ShopItemsTimers)
+            foreach (var item in _saveSystem.TimersData.ShopItemsTimers)
             {
                 Debug.Log(item.Key);
             }

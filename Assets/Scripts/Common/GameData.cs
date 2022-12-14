@@ -27,7 +27,7 @@ namespace Common
         public bool IsNeedToMove;
         public bool IsGameEnded;
         public string HealthTimer;
-        public Dictionary<int, string> ShopItemsTimers;
+        
 
         public GameData()
         {
@@ -41,7 +41,6 @@ namespace Common
             IsNeedToMove = DEFAUL_IS_NEED_TO_MOVE;
             IsGameEnded = DEFAULT_IS_GAME_ENDED;
             HealthTimer = DEFAULT_HEALTH_TIMER;
-            ShopItemsTimers = new Dictionary<int, string>();
         }
     }
 }
