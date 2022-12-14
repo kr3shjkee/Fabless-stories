@@ -1,6 +1,7 @@
 ﻿using Common;
 using Signals.Game;
 using Signals.Ui;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -81,6 +82,10 @@ namespace GameUi
         public override void CloseShopPanel()
         {
             _gameUiPanelsController.CloseShopPanel();
+            foreach (var item in _saveSystem.Data.ShopItemsTimers)
+            {
+                Debug.Log(item.Key);
+            }
         }
 
         protected override void CloseCurrentPanel(OnCloseCurrentPanelSignal signal)

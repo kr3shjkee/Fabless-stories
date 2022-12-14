@@ -29,7 +29,7 @@ namespace GameUi
         private GameObject _parent;
 
         private SignalBus _signalBus;
-        public  ItemConfig _itemConfig;
+        private  ItemConfig _itemConfig;
         private SaveSystem _saveSystem;
         
         private bool _isLocked;
@@ -76,14 +76,15 @@ namespace GameUi
         
         private void Init()
         {
+            //_saveSystem.LoadData();
+            
             _parent = FindObjectOfType<ShopItemsParent>().gameObject;
             gameObject.transform.SetParent(_parent.transform);
             _button = GetComponentInChildren<Button>();
-            _saveSystem.LoadData();
             _button.onClick.AddListener(OnClick);
             SetDefaultParams();
             
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(Int32.Parse(_itemConfig.ID)))
+            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
                 StartTimer();
         }
 
@@ -103,19 +104,18 @@ namespace GameUi
 
         public void DestroyItem()
         {
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(Int32.Parse(_itemConfig.ID)))
-                _saveSystem.Data.ShopItemsTimers[Int32.Parse(_itemConfig.ID)] = _targetTime.ToString();
-            
-            else if (!_saveSystem.Data.ShopItemsTimers.ContainsKey(Int32.Parse(_itemConfig.ID)) && _isLocked)
-                _saveSystem.Data.ShopItemsTimers.Add(Int32.Parse(_itemConfig.ID), _targetTime.ToString());
-            
-            _saveSystem.SaveData();
+            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
+            {
+                _saveSystem.Data.ShopItemsTimers.Remove(_itemConfig.ID);
+                _saveSystem.Data.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
+                _saveSystem.SaveData();
+            }
             Destroy(gameObject);
         }
 
         private void SetDefaultParams()
         {
-            _price = (int)_itemConfig.PriceValue;
+            _price = _itemConfig.PriceValue;
             priceValue.text = Price.ToString();
             cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes + "m";
             selectedBg.gameObject.SetActive(false);
@@ -135,10 +135,15 @@ namespace GameUi
         {
             var currentTime = DateTime.Now;
             _targetTime = currentTime.AddMinutes(_itemConfig.CooldownInMinutes);
-            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(Int32.Parse(_itemConfig.ID)))
+            if (_saveSystem.Data.ShopItemsTimers.ContainsKey(_itemConfig.ID))
             {
-                _targetTime = DateTime.Parse(_saveSystem.Data.ShopItemsTimers[Int32.Parse(_itemConfig.ID)]);
+                _targetTime = DateTime.Parse(_saveSystem.Data.ShopItemsTimers[_itemConfig.ID]);
                 CheckTime();
+            }
+            else
+            {
+                _saveSystem.Data.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
+                _saveSystem.SaveData();
             }
             DoLock();
         }
@@ -149,7 +154,7 @@ namespace GameUi
 
             if (time.Seconds < 0)
             {
-                _saveSystem.Data.ShopItemsTimers.Remove(Int32.Parse(_itemConfig.ID));
+                _saveSystem.Data.ShopItemsTimers.Remove(_itemConfig.ID);
                 _saveSystem.SaveData();
                 SetDefaultParams();
             }

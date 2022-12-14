@@ -51,17 +51,10 @@ namespace Common
 
         private void CreateShopItems()
         {
-            foreach (var element in _items)
-            {
-                element.DestroyItem();
-            }
-
-            _items.Clear();
-            
             for (int i = 0; i < _shopItemConfig.Items.Length; i++)
             {
-                var itemGameObject = _factory.Create(_shopItemConfig.Items[i]).gameObject;
-                itemGameObject.transform.SetParent(_parentForItems.transform);
+                var itemGameObject = _factory.Create(_shopItemConfig.Items[i]);
+                itemGameObject.gameObject.transform.SetParent(_parentForItems.transform);
                 var item = itemGameObject.GetComponent<ShopItem>();
                 _items.Add(item);
             }
@@ -70,6 +63,10 @@ namespace Common
 
         private void ShowClickedItem(OnShopElementClickSignal signal)
         {
+            foreach (var item in _items)
+            {
+                item.SetSelected(false);
+            }
             var clickedItem = signal.Item;
             clickedItem.SetSelected(true);
         }
@@ -91,8 +88,9 @@ namespace Common
         {
             foreach (var item in _items)
             {
-                item.SetSelected(false);
+                item.DestroyItem();
             }
+            _items.Clear();
         }
     }
 }

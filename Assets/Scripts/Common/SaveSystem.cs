@@ -45,13 +45,13 @@ namespace Common
 
         public void LoadData()
         {
-            string jsonData = PlayerPrefs.GetString(DATA_KEY);
+            var jsonData = PlayerPrefs.GetString(DATA_KEY);
             Data = JsonUtility.FromJson<GameData>(jsonData);
         }
 
         public void SaveData()
         {
-            string jsonData = JsonUtility.ToJson(Data);
+            var jsonData = JsonUtility.ToJson(Data);
             PlayerPrefs.SetString(DATA_KEY, jsonData);
         }
 

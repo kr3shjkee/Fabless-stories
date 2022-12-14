@@ -12,12 +12,11 @@ namespace Common
         private readonly bool DEFAUL_IS_NEED_TO_MOVE = false;
         private readonly bool DEFAULT_IS_GAME_ENDED = false;
         
+
         public readonly int DEFAULT_HEALTH_VALUE = 5;
         public readonly int DEFAULT_BACKSTEPS_VALUE = 5;
         public readonly string DEFAULT_HEALTH_TIMER = "";
-        public Dictionary<int, string> ShopItemsTimers;
-
-
+        
         public int Gold;
         public int CurrentChapterNumber;
         public int CurrentLevelNumber;
@@ -28,6 +27,7 @@ namespace Common
         public bool IsNeedToMove;
         public bool IsGameEnded;
         public string HealthTimer;
+        public Dictionary<int, string> ShopItemsTimers;
 
         public GameData()
         {

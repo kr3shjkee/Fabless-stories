@@ -13,16 +13,16 @@ namespace Configs
     [System.Serializable]
     public class ItemConfig
     {
-        [SerializeField] private string id;
+        [SerializeField] private int id;
         [SerializeField] private Sprite sprite;
-        [SerializeField] private uint priceValue;
+        [SerializeField] private int priceValue;
         [SerializeField] private float cooldownInMinutes;
 
-        public string ID => id;
+        public int ID => id;
 
         public Sprite Sprite => sprite;
 
-        public uint PriceValue => priceValue;
+        public int PriceValue => priceValue;
 
         public float CooldownInMinutes => cooldownInMinutes;
     }
