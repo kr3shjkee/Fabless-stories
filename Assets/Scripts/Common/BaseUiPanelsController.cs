@@ -46,6 +46,12 @@ namespace Common
             if (currentPanel!=soundOptionsPanel)
                 InteractableButtonsActivate();
         }
+
+        public virtual void CloseShopPanel()
+        {
+            shopPanel.SetActive(false);
+            InteractableButtonsActivate();
+        }
         
 
         protected virtual void InteractableButtonsActivate()

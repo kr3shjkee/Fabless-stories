@@ -1,4 +1,3 @@
-using Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

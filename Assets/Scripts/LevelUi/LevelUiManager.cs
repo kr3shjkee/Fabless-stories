@@ -96,6 +96,11 @@ namespace LevelUi
             SceneManager.LoadScene("GameScene");
         }
 
+        public override void CloseShopPanel()
+        {
+            //TODO: close shop
+        }
+
         protected override void CloseCurrentPanel(OnCloseCurrentPanelSignal signal)
         {
             _levelUiPanelsController.CloseCurrentPanel(signal._currentPanel);

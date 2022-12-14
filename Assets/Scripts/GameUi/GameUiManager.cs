@@ -78,6 +78,11 @@ namespace GameUi
             SceneManager.LoadScene("LoadingScene");
         }
 
+        public override void CloseShopPanel()
+        {
+            _gameUiPanelsController.CloseShopPanel();
+        }
+
         protected override void CloseCurrentPanel(OnCloseCurrentPanelSignal signal)
         {
             _gameUiPanelsController.CloseCurrentPanel(signal._currentPanel);
@@ -103,5 +108,7 @@ namespace GameUi
             _saveSystem.SaveData();
             SceneManager.LoadScene("LevelScene");
         }
+        
+        
     }
 }

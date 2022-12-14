@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Common
 {
-    public class ShopController : IInitializable, IDisposable, ITickable
+    public class ShopController : IInitializable, IDisposable
     {
         private ShopItem.Factory _factory;
         private SignalBus _signalBus;
@@ -17,7 +17,7 @@ namespace Common
         private SaveSystem _saveSystem;
         private GameUiManager _gameUiManager;
 
-        private List<ShopItem> _items;
+        private List<ShopItem> _items = new List<ShopItem>();
 
         [Inject]
         public ShopController(SignalBus signalBus, ShopItemConfig shopItemConfig, ShopItem.Factory factory, 
@@ -37,12 +37,15 @@ namespace Common
             _signalBus.Subscribe<OnShopPanelsOpenSignal>(CreateShopItems);
             _signalBus.Subscribe<OnShopElementClickSignal>(ShowClickedItem);
             _signalBus.Subscribe<OnShopItemBuyClick>(BuyItem);
+            _signalBus.Subscribe<OnShopPanelCloseSignal>(DestroyItems);
         }
 
         public void Dispose()
         {
             _signalBus.Unsubscribe<OnShopPanelsOpenSignal>(CreateShopItems);
             _signalBus.Unsubscribe<OnShopElementClickSignal>(ShowClickedItem);
+            _signalBus.Unsubscribe<OnShopItemBuyClick>(BuyItem);
+            _signalBus.Unsubscribe<OnShopPanelCloseSignal>(DestroyItems);
         }
         
 
@@ -67,11 +70,6 @@ namespace Common
 
         private void ShowClickedItem(OnShopElementClickSignal signal)
         {
-            foreach (var item in _items)
-            {
-                item.SetSelected(false);
-            }
-
             var clickedItem = signal.Item;
             clickedItem.SetSelected(true);
         }
@@ -85,13 +83,16 @@ namespace Common
                 _saveSystem.SaveData();
                 _gameUiManager.UpdateUiValues();
                 selectedItem.SetSelected(false);
-                _signalBus.Fire(new OnShopItemTimerStartSignal(Int32.Parse(selectedItem._itemConfig.ID), (int)selectedItem._itemConfig.CooldownInMinutes));
+                selectedItem.StartTimer();
             }
         }
 
-        public void Tick()
+        private void DestroyItems()
         {
-            
+            foreach (var item in _items)
+            {
+                item.SetSelected(false);
+            }
         }
     }
 }
