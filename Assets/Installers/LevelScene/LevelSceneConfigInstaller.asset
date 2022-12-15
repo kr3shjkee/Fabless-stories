@@ -15,3 +15,4 @@ MonoBehaviour:
   elementsConfig: {fileID: 11400000, guid: 0cf8d6ffb1df19c4a855d8e4104d9787, type: 2}
   boardConfig: {fileID: 11400000, guid: eb1e1f5f3da2bef4cbfe33fbca9c65e0, type: 2}
   levelConfigs: {fileID: 11400000, guid: 6c01b3ee8bfc5364ea0e647c23db4466, type: 2}
+  shopItemConfig: {fileID: 11400000, guid: 7a6d20bd7db49a04b9229cf342864a34, type: 2}

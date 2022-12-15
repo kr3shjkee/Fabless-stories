@@ -77,6 +77,7 @@ namespace LevelUi
         public override void ShowShopPanel()
         {
             _levelUiPanelsController.ShowShopPanel();
+            _signalBus.Fire<OnShopPanelsOpenSignal>();
         }
 
         public override void ShowOptionsPanel()
@@ -98,12 +99,17 @@ namespace LevelUi
 
         public override void CloseShopPanel()
         {
-            //TODO: close shop
+            _levelUiPanelsController.CloseShopPanel();
         }
 
         protected override void CloseCurrentPanel(OnCloseCurrentPanelSignal signal)
         {
             _levelUiPanelsController.CloseCurrentPanel(signal._currentPanel);
+        }
+
+        protected override void UpdateGoldAfterPurchase()
+        {
+            _levelUiPanelsController.UpdateGoldValue(_saveSystem.Data.Gold);
         }
 
         public void ShowFailPanel()

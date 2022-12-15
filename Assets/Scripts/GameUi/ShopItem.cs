@@ -26,7 +26,6 @@ namespace GameUi
         [SerializeField] private TextMeshProUGUI cooldownValue;
 
         private Button _button;
-        private GameObject _parent;
 
         private SignalBus _signalBus;
         private  ItemConfig _itemConfig;
@@ -50,7 +49,7 @@ namespace GameUi
             _saveSystem = saveSystem;
         }
 
-        private void OnEnable()
+        private void Awake()
         {
             _signalBus.Subscribe<OnInitShopItemsSignal>(Init);
         }
@@ -78,8 +77,6 @@ namespace GameUi
         {
             _saveSystem.LoadData();
             
-            _parent = FindObjectOfType<ShopItemsParent>().gameObject;
-            gameObject.transform.SetParent(_parent.transform);
             _button = GetComponentInChildren<Button>();
             _button.onClick.AddListener(OnClick);
             SetDefaultParams();

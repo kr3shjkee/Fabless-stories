@@ -1,3 +1,4 @@
+using Common;
 using Configs;
 using GameUi;
 using Level;
@@ -24,6 +25,8 @@ namespace Installers.LevelScene
             Container.Bind<LevelUiPanelsController>().FromComponentInNewPrefab(levelUiPanelsController).AsSingle().NonLazy();
             Container.BindFactory<ItemConfig, ShopItem, ShopItem.Factory>()
                 .FromComponentInNewPrefab(shopItemPrefab);
+            Container.BindInterfacesAndSelfTo<ShopController>().AsSingle().NonLazy();
+            
             BindLogicSignals();
             BindUiSignals();
         }
@@ -58,6 +61,14 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnSoundOptionsButtonClickSignal>();
             Container.DeclareSignal<OnBackStepsButtonClickSignal>();
             Container.DeclareSignal<OnUpdateUiValuesSignal>();
+            Container.DeclareSignal<OnShopPanelsOpenSignal>();
+            Container.DeclareSignal<OnShopItemBuyClick>();
+            Container.DeclareSignal<OnSetDefaultItemSignal>();
+            Container.DeclareSignal<OnShopPanelCloseSignal>();
+            Container.DeclareSignal<DoLockShopItemSignal>();
+            Container.DeclareSignal<OnUpdateGoldAfterPurchaseSignal>();
+            Container.DeclareSignal<OnInitShopItemsSignal>();
+            Container.DeclareSignal<OnShopElementClickSignal>();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Installers.GameScene
             Container.Bind<GameUiPanelsController>().FromComponentInNewPrefab(gameUiPanelsControllerPrefab).AsSingle().NonLazy();
             Container.BindFactory<DialogConfig, ChapterDialog, ChapterDialog.Factory>()
                 .FromComponentInNewPrefab(chapterDialogPrefab);
-            
+
             Container.BindFactory<ItemConfig, ShopItem, ShopItem.Factory>()
                 .FromComponentInNewPrefab(shopItemPrefab);
             Container.BindInterfacesAndSelfTo<ShopController>().AsSingle().NonLazy();
@@ -63,6 +63,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnSetDefaultItemSignal>();
             Container.DeclareSignal<OnShopPanelCloseSignal>();
             Container.DeclareSignal<DoLockShopItemSignal>();
+            Container.DeclareSignal<OnUpdateGoldAfterPurchaseSignal>();
         }
         
     }

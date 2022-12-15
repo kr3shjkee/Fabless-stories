@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Configs;
+using Game;
 using GameUi;
 using Signals.Ui;
 using UnityEngine;
@@ -10,25 +11,24 @@ namespace Common
 {
     public class ShopController : IInitializable, IDisposable
     {
+        private const string ITEMS_PARENT_TAG = "ItemsParent";
+        
         private ShopItem.Factory _factory;
         private SignalBus _signalBus;
         private ShopItemConfig _shopItemConfig;
         private GameObject _parentForItems;
         private SaveSystem _saveSystem;
-        private GameUiManager _gameUiManager;
 
         private List<ShopItem> _items = new List<ShopItem>();
 
         [Inject]
         public ShopController(SignalBus signalBus, ShopItemConfig shopItemConfig, ShopItem.Factory factory, 
-            GameUiPanelsController gameUiPanelsController, SaveSystem saveSystem, GameUiManager gameUiManager)
+         SaveSystem saveSystem)
         {
             _signalBus = signalBus;
             _factory = factory;
             _shopItemConfig = shopItemConfig;
-            _parentForItems = gameUiPanelsController.gameObject;
             _saveSystem = saveSystem;
-            _gameUiManager = gameUiManager;
         }
         
         
@@ -51,6 +51,7 @@ namespace Common
 
         private void CreateShopItems()
         {
+            _parentForItems = GameObject.FindGameObjectWithTag(ITEMS_PARENT_TAG);
             for (int i = 0; i < _shopItemConfig.Items.Length; i++)
             {
                 var itemGameObject = _factory.Create(_shopItemConfig.Items[i]);
@@ -78,7 +79,7 @@ namespace Common
             {
                 _saveSystem.Data.Gold += selectedItem.Price;
                 _saveSystem.SaveData();
-                _gameUiManager.UpdateUiValues();
+                _signalBus.Fire<OnUpdateGoldAfterPurchaseSignal>();
                 selectedItem.SetSelected(false);
                 selectedItem.StartTimer();
             }

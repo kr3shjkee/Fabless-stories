@@ -82,17 +82,18 @@ namespace GameUi
         public override void CloseShopPanel()
         {
             _gameUiPanelsController.CloseShopPanel();
-            foreach (var item in _saveSystem.TimersData.ShopItemsTimers)
-            {
-                Debug.Log(item.Key);
-            }
         }
 
         protected override void CloseCurrentPanel(OnCloseCurrentPanelSignal signal)
         {
             _gameUiPanelsController.CloseCurrentPanel(signal._currentPanel);
         }
-        
+
+        protected override void UpdateGoldAfterPurchase()
+        {
+            _gameUiPanelsController.UpdateGoldValue(_saveSystem.Data.Gold);
+        }
+
         private void ShowComingSoonPanel()
         {
             _gameUiPanelsController.ShowComingSoonPanel();
@@ -113,7 +114,6 @@ namespace GameUi
             _saveSystem.SaveData();
             SceneManager.LoadScene("LevelScene");
         }
-        
         
     }
 }

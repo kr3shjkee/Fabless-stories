@@ -1,7 +1,6 @@
 ﻿using Common;
 using Signals.Ui;
 using UnityEngine.UI;
-using UnityEngine;
 
 namespace GameUi
 {
