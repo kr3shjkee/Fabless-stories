@@ -76,3 +76,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundManagerPrefab: {fileID: 8019623812018567928, guid: 01d822f70a3f8ef4e97190df6eb1a37f, type: 3}
+  adsManagerPrefab: {fileID: 9145585034640248890, guid: 9b1a162167342994ba63bd0d0ea67e76, type: 3}
