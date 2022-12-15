@@ -42,7 +42,7 @@ namespace Ads
         // Implement code to execute when the loadCallback event triggers:
         void OnBannerLoaded()
         {
-            Advertisement.Banner.Show(_adUnitId);
+            ShowBannerAd();
         }
 
         // Implement code to execute when the load errorCallback event triggers:
@@ -55,6 +55,7 @@ namespace Ads
         // Implement a method to call when the Show Banner button is clicked:
         void ShowBannerAd()
         {
+            
             // Set up options to notify the SDK of show events:
             BannerOptions options = new BannerOptions
             {

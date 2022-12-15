@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Signals.Ads;
+using UnityEngine;
 using UnityEngine.Advertisements;
 using Zenject;
 
@@ -25,6 +27,12 @@ namespace Ads
             ? _iOsAdUnitId
             : _androidAdUnitId;
         LoadAd();
+        _signalBus.Subscribe<OnShowInterAdSignal>(ShowAd);
+    }
+
+    private void OnDestroy()
+    {
+        _signalBus.Unsubscribe<OnShowInterAdSignal>(ShowAd);
     }
 
     // Load content to the Ad Unit:
@@ -71,6 +79,8 @@ namespace Ads
 
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
+        _signalBus.Fire<EndInterAdSignal>();
+        LoadAd();
     }
     }
 }

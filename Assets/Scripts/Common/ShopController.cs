@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Configs;
 using Game;
 using GameUi;
+using Signals.Ads;
 using Signals.Ui;
 using UnityEngine;
 using Zenject;
@@ -36,16 +37,18 @@ namespace Common
         {
             _signalBus.Subscribe<OnShopPanelsOpenSignal>(CreateShopItems);
             _signalBus.Subscribe<OnShopElementClickSignal>(ShowClickedItem);
-            _signalBus.Subscribe<OnShopItemBuyClick>(BuyItem);
+            _signalBus.Subscribe<OnShopItemBuyClick>(ShowRewardAd);
             _signalBus.Subscribe<OnShopPanelCloseSignal>(DestroyItems);
+            _signalBus.Subscribe<EndRewardedAdSignal>(BuyItem);
         }
 
         public void Dispose()
         {
             _signalBus.Unsubscribe<OnShopPanelsOpenSignal>(CreateShopItems);
             _signalBus.Unsubscribe<OnShopElementClickSignal>(ShowClickedItem);
-            _signalBus.Unsubscribe<OnShopItemBuyClick>(BuyItem);
+            _signalBus.Unsubscribe<OnShopItemBuyClick>(ShowRewardAd);
             _signalBus.Unsubscribe<OnShopPanelCloseSignal>(DestroyItems);
+            _signalBus.Unsubscribe<EndRewardedAdSignal>(BuyItem);
         }
         
 
@@ -75,13 +78,20 @@ namespace Common
         private void BuyItem()
         {
             var selectedItem = _items.Find(item => item.IsSelected);
+            _saveSystem.Data.Gold += selectedItem.Price;
+            _saveSystem.SaveData();
+            _signalBus.Fire<OnUpdateGoldAfterPurchaseSignal>();
+            selectedItem.SetSelected(false);
+            selectedItem.StartTimer();
+            
+        }
+
+        private void ShowRewardAd()
+        {
+            var selectedItem = _items.Find(item => item.IsSelected);
             if (selectedItem != null)
             {
-                _saveSystem.Data.Gold += selectedItem.Price;
-                _saveSystem.SaveData();
-                _signalBus.Fire<OnUpdateGoldAfterPurchaseSignal>();
-                selectedItem.SetSelected(false);
-                selectedItem.StartTimer();
+                _signalBus.Fire<OnShowRewardedAdSignal>();
             }
         }
 

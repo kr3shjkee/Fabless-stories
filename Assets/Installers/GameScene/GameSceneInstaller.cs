@@ -44,6 +44,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<EndLevelMapInitializeSignal>();
             Container.DeclareSignal<OnPlayLevelButtonClickSignal>();
             Container.DeclareSignal<ComingSoonSignal>();
+            Container.DeclareSignal<OnCameraInitSignal>();
         }
         
 

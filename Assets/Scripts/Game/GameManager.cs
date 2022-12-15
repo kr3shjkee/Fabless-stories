@@ -4,6 +4,7 @@ using Common;
 using Configs;
 using GameUi;
 using LevelUi;
+using Signals.Ads;
 using Signals.Game;
 using Signals.Ui;
 using UnityEngine;
@@ -46,7 +47,8 @@ namespace Game
         {
             SubscribeSignals();
             _gameUiManager.UpdateUiValues();
-            CheckCurrentLevel();
+            _signalBus.Fire<OnShowInterAdSignal>();
+            //CheckCurrentLevel();
         }
         
 
@@ -59,12 +61,14 @@ namespace Game
         {
             _signalBus.Subscribe<OnNextDialogSignal>(NextDialog);
             _signalBus.Subscribe<OnHealthBuyButtonClick>(RestoreHealth);
+            _signalBus.Subscribe<EndInterAdSignal>(CheckCurrentLevel);
         }
         
         private void UnsubscribeSignals()
         {
             _signalBus.Unsubscribe<OnHealthBuyButtonClick>(RestoreHealth);
-            
+            _signalBus.Unsubscribe<OnNextDialogSignal>(NextDialog);
+            _signalBus.Unsubscribe<EndInterAdSignal>(CheckCurrentLevel);
         }
 
         private void StartChapterDialog()
@@ -101,6 +105,7 @@ namespace Game
         private void InitPlayer()
         {
             _player.Initialize(LetCurrentLevelPosition(_saveSystem.Data.IsNeedToMove));
+            _signalBus.Fire<OnCameraInitSignal>();
         }
         
         

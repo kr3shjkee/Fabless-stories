@@ -1,16 +1,25 @@
-﻿using UnityEngine;
+﻿using Signals.Ads;
+using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Ads
 {
-    public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+    public class RewardedAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
     {
-        [SerializeField] Button _showAdButton;
         [SerializeField] string _androidAdUnitId = "Rewarded_Android";
         [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
         string _adUnitId = null; // This will remain null for unsupported platforms
- 
+
+        private SignalBus _signalBus;
+        
+        [Inject]
+        public void Construct(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+        }
+        
         void Awake()
         {   
             // Get the Ad Unit ID for the current platform:
@@ -20,8 +29,13 @@ namespace Ads
             _adUnitId = _androidAdUnitId;
 #endif
 
-            //Disable the button until the ad is ready to show:
-            _showAdButton.interactable = false;
+            LoadAd();
+            _signalBus.Subscribe<OnShowRewardedAdSignal>(ShowAd);
+        }
+        
+        void OnDestroy()
+        {
+            _signalBus.Unsubscribe<OnShowRewardedAdSignal>(ShowAd);
         }
  
         // Load content to the Ad Unit:
@@ -36,21 +50,12 @@ namespace Ads
         public void OnUnityAdsAdLoaded(string adUnitId)
         {
             Debug.Log("Ad Loaded: " + adUnitId);
- 
-            if (adUnitId.Equals(_adUnitId))
-            {
-                // Configure the button to call the ShowAd() method when clicked:
-                _showAdButton.onClick.AddListener(ShowAd);
-                // Enable the button for users to click:
-                _showAdButton.interactable = true;
-            }
+            
         }
  
         // Implement a method to execute when the user clicks the button:
         public void ShowAd()
         {
-            // Disable the button:
-            _showAdButton.interactable = false;
             // Then show the ad:
             Advertisement.Show(_adUnitId, this);
         }
@@ -62,7 +67,7 @@ namespace Ads
             {
                 Debug.Log("Unity Ads Rewarded Ad Completed");
                 // Grant a reward.
-
+                _signalBus.Fire<EndRewardedAdSignal>();
                 // Load another ad:
                 Advertisement.Load(_adUnitId, this);
             }
@@ -84,10 +89,6 @@ namespace Ads
         public void OnUnityAdsShowStart(string adUnitId) { }
         public void OnUnityAdsShowClick(string adUnitId) { }
  
-        void OnDestroy()
-        {
-            // Clean up the button listeners:
-            _showAdButton.onClick.RemoveAllListeners();
-        }
+ 
     }
 }
