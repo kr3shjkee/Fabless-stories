@@ -8,7 +8,7 @@ namespace LevelUi
         protected override void OnClick()
         {
             base.OnClick();
-            _signalBus.Fire<OnHealthRestoreSignal>();
+            _signalBus.Fire<OnHealthBuyButtonClick>();
         }
     }
 }

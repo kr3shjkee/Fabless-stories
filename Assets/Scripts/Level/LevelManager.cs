@@ -119,8 +119,9 @@ namespace Level
             _signalBus.Subscribe<OnBackStepSignal>(BackStep);
             _signalBus.Subscribe<OnBackStepsRestoredSignal>(RestoreBackSteps);
             _signalBus.Subscribe<OnRestartSignal>(RestartLevel);
-            _signalBus.Subscribe<OnHealthRestoreSignal>(RestoreHealth);
+            _signalBus.Subscribe<OnHealthBuyButtonClick>(RestoreHealth);
             _signalBus.Subscribe<OnStepsRestoredSignal>(RestoreSteps);
+            _signalBus.Subscribe<OnLeaveSceneSignal>(CheckStepsBeforeLeave);
         }
 
         private void UnSubscribeSignals()
@@ -130,8 +131,9 @@ namespace Level
             _signalBus.Unsubscribe<OnBackStepSignal>(BackStep);
             _signalBus.Unsubscribe<OnBackStepsRestoredSignal>(RestoreBackSteps);
             _signalBus.Unsubscribe<OnRestartSignal>(RestartLevel);
-            _signalBus.Unsubscribe<OnHealthRestoreSignal>(RestoreHealth);
+            _signalBus.Unsubscribe<OnHealthBuyButtonClick>(RestoreHealth);
             _signalBus.Unsubscribe<OnStepsRestoredSignal>(RestoreSteps);
+            _signalBus.Unsubscribe<OnLeaveSceneSignal>(CheckStepsBeforeLeave);
         }
 
         private void Match(OnBoardMatchSignal signal)
@@ -187,12 +189,10 @@ namespace Level
             
             try
             {
-                Debug.Log("Timer was started");
                 _isNeedToCancel = true;
                 await UniTask.Delay(TimeSpan.FromSeconds(SHOW_HINT_TIME), cancellationToken: _cts.Token);
                 _isNeedToCancel = false;
                 _signalBus.Fire<OnElementMatchShowSignal>();
-                Debug.Log("Show hint");
             }
             catch (Exception e)
             {
@@ -201,7 +201,6 @@ namespace Level
                     Debug.Log(e.Message);
                     throw;
                 }
-                Debug.Log("Hint was canceled");
                 _cts.Dispose();
                 _isNeedToCancel = false;
             }
@@ -209,7 +208,7 @@ namespace Level
 
         private void BackStep()
         {
-            if (_saveSystem.Data.CurrentBackStepsCount > 0)
+            if (_saveSystem.Data.CurrentBackStepsCount > 0 && _boardController.IsCanBackStep)
             {
                 _saveSystem.Data.CurrentBackStepsCount--;
                 ChangeSteps(++_currentSteps);
@@ -217,10 +216,15 @@ namespace Level
                 _saveSystem.SaveData();
                 _boardController.OnBackStep();
             }
-            else
+            else if (_saveSystem.Data.CurrentBackStepsCount > 0 && !_boardController.IsCanBackStep)
+            {
+                return;
+            }
+            else if (_saveSystem.Data.CurrentBackStepsCount == 0)
             {
                 _levelUiManager.ShowBackStepsPanel();
             }
+            
         }
 
         private void RestoreBackSteps()
@@ -264,6 +268,15 @@ namespace Level
             else
             {
                 _levelUiManager.ShowShopPanel();
+            }
+        }
+
+        private void CheckStepsBeforeLeave()
+        {
+            if (_currentSteps<_currentLevelConfig.StepsCount && _currentHealth>0)
+            {
+                _saveSystem.Data.HealthValue--;
+                _saveSystem.SaveData();
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Linq;
 using Common;
 using Configs;
 using GameUi;
+using LevelUi;
 using Signals.Game;
 using Signals.Ui;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Game
 {
     public class GameManager : IInitializable, IDisposable
     {
+        private const int HEALTH_RESTORE_PRICE = 1000;
+        
         private readonly SignalBus _signalBus;
         private readonly SaveSystem _saveSystem;
         private readonly GameUiManager _gameUiManager;
@@ -55,13 +58,13 @@ namespace Game
         private void SubscribeSignals()
         {
             _signalBus.Subscribe<OnNextDialogSignal>(NextDialog);
-            //_signalBus.Subscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            _signalBus.Subscribe<OnHealthBuyButtonClick>(RestoreHealth);
         }
         
         private void UnsubscribeSignals()
         {
-            _signalBus.Unsubscribe<OnNextDialogSignal>(NextDialog);
-            //_signalBus.Unsubscribe<EndLevelMapInitializeSignal>(InitPlayer);
+            _signalBus.Unsubscribe<OnHealthBuyButtonClick>(RestoreHealth);
+            
         }
 
         private void StartChapterDialog()
@@ -153,6 +156,20 @@ namespace Game
         {
             return _chapterDialogConfigs.First(config => config.LevelNumber == level);
         }
-        
+
+        private void RestoreHealth()
+        {
+            if (_saveSystem.Data.Gold >= HEALTH_RESTORE_PRICE && _saveSystem.Data.HealthValue == 0)
+            {
+                _saveSystem.Data.Gold -= HEALTH_RESTORE_PRICE;
+                _saveSystem.Data.HealthValue = _saveSystem.Data.DEFAULT_HEALTH_VALUE;
+                _saveSystem.SaveData();
+                _gameUiManager.UpdateUiValues();
+            }
+            else
+            {
+                _gameUiManager.ShowShopPanel();
+            }
+        }
     }
 }

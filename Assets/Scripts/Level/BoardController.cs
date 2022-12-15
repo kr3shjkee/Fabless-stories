@@ -18,14 +18,18 @@ namespace Level
         private readonly Element.Factory _factory;
         private readonly SignalBus _signalBus;
         private readonly SoundManager _soundManager;
+        
 
         private Element[,] _elements;
         private DiContainer _container;
         private string[] _elementKeys;
+        private bool _isCanBackStep;
 
         private Element _firstSelected;
 
         private bool _isBlocked;
+
+        public bool IsCanBackStep => _isCanBackStep;
 
         public BoardController(BoardConfig boardConfig, ElementConfig elementsConfig, Element.Factory factory,
             SignalBus signalBus, SoundManager soundManager)
@@ -48,6 +52,7 @@ namespace Level
         {
             GenerateElements(elementKeys);
             SubscribeSignals();
+            _isCanBackStep = false;
         }
 
         public string[] SaveElementKeys()
@@ -113,6 +118,7 @@ namespace Level
             await UniTask.Yield();
             
             GenerateElements(_elementKeys);
+            _isCanBackStep = false;
         }
 
         private void OnElementClick(OnElementClickSignal signal)
@@ -389,6 +395,7 @@ namespace Level
 
             second.SetLocalPosition(first.transform.localPosition, first.GridPosition);
             first.SetLocalPosition(position, gridPosition);
+            _isCanBackStep = true;
         }
 
         private void GenerateElements()

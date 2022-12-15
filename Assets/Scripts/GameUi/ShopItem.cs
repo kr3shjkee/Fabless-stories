@@ -130,19 +130,20 @@ namespace GameUi
 
         public void StartTimer()
         {
-            var currentTime = DateTime.Now;
-            _targetTime = currentTime.AddMinutes(_itemConfig.CooldownInMinutes);
             if (_saveSystem.TimersData.ShopItemsTimers.ContainsKey(_itemConfig.ID))
             {
                 _targetTime = DateTime.Parse(_saveSystem.TimersData.ShopItemsTimers[_itemConfig.ID]);
+                DoLock();
                 CheckTime();
             }
             else
             {
+                var currentTime = DateTime.Now;
+                _targetTime = currentTime.AddMinutes(_itemConfig.CooldownInMinutes);
                 _saveSystem.TimersData.ShopItemsTimers.Add(_itemConfig.ID, _targetTime.ToString());
                 _saveSystem.SaveData();
+                DoLock();
             }
-            DoLock();
         }
 
         private void CheckTime()

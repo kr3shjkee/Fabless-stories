@@ -49,6 +49,7 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnTargetsChangedSignal>();
             Container.DeclareSignal<OnStepsRestoredSignal>();
             Container.DeclareSignal<OnLevelCompleteSignal>();
+            Container.DeclareSignal<OnLeaveSceneSignal>();
         }
 
         private void BindUiSignals()
@@ -69,6 +70,7 @@ namespace Installers.LevelScene
             Container.DeclareSignal<OnUpdateGoldAfterPurchaseSignal>();
             Container.DeclareSignal<OnInitShopItemsSignal>();
             Container.DeclareSignal<OnShopElementClickSignal>();
+            Container.DeclareSignal<OnHealthBuyButtonClick>();
         }
     }
 }

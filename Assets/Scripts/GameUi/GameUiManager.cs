@@ -111,8 +111,16 @@ namespace GameUi
 
         private void GoToLevel()
         {
-            _saveSystem.SaveData();
-            SceneManager.LoadScene("LevelScene");
+            if (_saveSystem.Data.HealthValue==0)
+            {
+                ShowHealthPanel();
+            }
+            else
+            {
+                _saveSystem.SaveData();
+                SceneManager.LoadScene("LevelScene");
+            }
+           
         }
         
     }

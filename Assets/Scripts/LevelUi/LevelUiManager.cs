@@ -92,6 +92,7 @@ namespace LevelUi
 
         public override void BackToPreviousScene()
         {
+            _signalBus.Fire<OnLeaveSceneSignal>();
             _saveSystem.SaveData();
             _levelUiPanelsController.HideFailPanel();
             SceneManager.LoadScene("GameScene");

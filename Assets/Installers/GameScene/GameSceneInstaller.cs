@@ -2,7 +2,9 @@ using Common;
 using Configs;
 using Game;
 using GameUi;
+using LevelUi;
 using Signals.Game;
+using Signals.Level;
 using Signals.Ui;
 using UnityEditor;
 using UnityEngine;
@@ -64,6 +66,7 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnShopPanelCloseSignal>();
             Container.DeclareSignal<DoLockShopItemSignal>();
             Container.DeclareSignal<OnUpdateGoldAfterPurchaseSignal>();
+            Container.DeclareSignal<OnHealthBuyButtonClick>();
         }
         
     }
