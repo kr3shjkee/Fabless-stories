@@ -34,12 +34,14 @@ namespace GameUi
         private bool _isLocked;
         private bool _isSelected;
         private int _price;
+        private int _id;
         private DateTime _targetTime;
         
 
         public bool IsSelected => _isSelected;
 
         public int Price => _price;
+        public int Id => _id;
 
         [Inject]
         public void Construct(SignalBus signalBus, ItemConfig itemConfig, SaveSystem saveSystem)
@@ -113,6 +115,7 @@ namespace GameUi
         private void SetDefaultParams()
         {
             _price = _itemConfig.PriceValue;
+            _id = _itemConfig.ID;
             priceValue.text = Price.ToString();
             cooldownValue.text = COOLDOWN + _itemConfig.CooldownInMinutes + "m";
             selectedBg.gameObject.SetActive(false);

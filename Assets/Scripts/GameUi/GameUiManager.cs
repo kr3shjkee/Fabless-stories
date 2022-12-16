@@ -1,7 +1,6 @@
 ﻿using Common;
 using Signals.Game;
 using Signals.Ui;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 

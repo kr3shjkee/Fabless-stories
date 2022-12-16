@@ -4,6 +4,7 @@ using Configs;
 using Game;
 using GameUi;
 using Signals.Ads;
+using Signals.Analytics;
 using Signals.Ui;
 using UnityEngine;
 using Zenject;
@@ -81,6 +82,7 @@ namespace Common
             _saveSystem.Data.Gold += selectedItem.Price;
             _saveSystem.SaveData();
             _signalBus.Fire<OnUpdateGoldAfterPurchaseSignal>();
+            _signalBus.Fire(new OnBuyAdRewardItemsSignal(selectedItem.Id,selectedItem.Price));
             selectedItem.SetSelected(false);
             selectedItem.StartTimer();
             

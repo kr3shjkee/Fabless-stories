@@ -5,6 +5,7 @@ using Configs;
 using GameUi;
 using LevelUi;
 using Signals.Ads;
+using Signals.Analytics;
 using Signals.Game;
 using Signals.Ui;
 using UnityEngine;
@@ -48,7 +49,6 @@ namespace Game
             SubscribeSignals();
             _gameUiManager.UpdateUiValues();
             _signalBus.Fire<OnShowInterAdSignal>();
-            //CheckCurrentLevel();
         }
         
 
@@ -169,6 +169,7 @@ namespace Game
                 _saveSystem.Data.Gold -= HEALTH_RESTORE_PRICE;
                 _saveSystem.Data.HealthValue = _saveSystem.Data.DEFAULT_HEALTH_VALUE;
                 _saveSystem.SaveData();
+                _signalBus.Fire(new OnHealthBuySignal(_saveSystem.Data.HealthValue, HEALTH_RESTORE_PRICE));
                 _gameUiManager.UpdateUiValues();
             }
             else

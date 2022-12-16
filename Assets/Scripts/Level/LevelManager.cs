@@ -4,11 +4,13 @@ using Common;
 using Configs;
 using Cysharp.Threading.Tasks;
 using LevelUi;
+using Signals.Analytics;
 using Signals.Level;
 using Signals.Ui;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using OnLevelCompleteSignal = Signals.Analytics.OnLevelCompleteSignal;
 
 namespace Level
 {
@@ -153,6 +155,8 @@ namespace Level
             _saveSystem.Data.CurrentLevelNumber++;
             _saveSystem.Data.IsNeedToMove = true;
             _saveSystem.SaveData();
+            _signalBus.Fire(new OnLevelCompleteSignal(_currentLevelConfig.LevelNumber,
+                _currentLevelConfig.StepsCount - _currentSteps));
             _levelUiManager.ShowWinPanel();
             _soundManager.WinSoundPlay();
         }
@@ -170,6 +174,7 @@ namespace Level
         private void LoseLevel()
         {
             _levelUiManager.ShowFailPanel();
+            _signalBus.Fire(new OnLevelFailSignal(_currentLevelConfig.LevelNumber));
         }
 
         private void RestartLevel()
@@ -235,6 +240,7 @@ namespace Level
                 ChangeGold(_currentGold-BACKSTEPS_RESTORE_PRICE);
                 _currentBackSteps = _saveSystem.Data.DEFAULT_BACKSTEPS_VALUE;
                 ChangeBackSteps(_currentBackSteps);
+                _signalBus.Fire(new OnBackStepsBuySignal(_currentBackSteps, BACKSTEPS_RESTORE_PRICE));
             }
             else
             {
@@ -249,6 +255,7 @@ namespace Level
                 ChangeGold(_currentGold-HEALTH_RESTORE_PRICE);
                 _currentHealth = _saveSystem.Data.DEFAULT_HEALTH_VALUE;
                 ChangeHealth(_currentHealth);
+                _signalBus.Fire(new OnHealthBuySignal(_currentHealth, HEALTH_RESTORE_PRICE));
             }
             else
             {
@@ -264,6 +271,7 @@ namespace Level
                 _currentSteps = 5;
                 ChangeSteps(_currentSteps);
                 _levelUiManager.HideFailPanel();
+                _signalBus.Fire(new OnLevelStepsBuySignal(_currentSteps, STEPS_RESTORE_PRICE));
             }
             else
             {
