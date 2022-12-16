@@ -49,38 +49,47 @@ namespace Common
         {
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Gold", signal.GoldValue,"AdRewardItem", 
                 signal.ItemId.ToString());
+            Debug.Log("Analytic: Gold add: " + signal.GoldValue);
         }
 
         private void BuyHealth(OnHealthBuySignal signal)
         {
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Health", signal.HealthValue,
                 "HealthMaxValue", "");
+            Debug.Log("Analytic: Health restored: " + signal.HealthValue);
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Gold", signal.Goldlost,"GoldForHealth", "");
+            Debug.Log("Analytic: Gold lost: " + signal.Goldlost);
         }
 
         private void BuyLevelSteps(OnLevelStepsBuySignal signal)
         {
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "LevelSteps", signal.StepsCount,
                 "LevelStepsForGold", "");
+            Debug.Log("Analytic: Steps add: " + signal.StepsCount);
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Gold", signal.GoldLost,"GoldForLevelSteps", "");
+            Debug.Log("Analytic: Gold lost: " + signal.GoldLost);
         }
 
         private void BuyBackSteps(OnBackStepsBuySignal signal)
         {
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "BackSteps", signal.BackStepsCount,
                 "BackStepsOnLevelForGold", "");
+            Debug.Log("Analytic: Steps add: " + signal.BackStepsCount);
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Gold", signal.GoldLost,"GoldForBackSteps", "");
+            Debug.Log("Analytic: Gold lost: " + signal.GoldLost);
         }
 
         private void LevelComplete(OnLevelCompleteSignal signal)
         {
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level: " + signal.LevelNumber,
                 "Not used steps: " + signal.NonUsedSteps);
+            Debug.Log("Analytic: Level completed: " + signal.LevelNumber);
         }
 
         private void LevelFail(OnLevelFailSignal signal)
         {
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Level: " + signal.LevelNumber);
+            Debug.Log("Analytic: Level failed: " + signal.LevelNumber);
         }
     }
 }
