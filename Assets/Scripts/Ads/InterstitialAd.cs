@@ -1,5 +1,4 @@
-﻿using System;
-using Signals.Ads;
+﻿using Signals.Ads;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using Zenject;

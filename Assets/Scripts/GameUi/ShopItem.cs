@@ -1,7 +1,6 @@
 ﻿using System;
 using Common;
 using Configs;
-using Game;
 using Signals.Ui;
 using TMPro;
 using UnityEngine;

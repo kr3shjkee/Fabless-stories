@@ -1,7 +1,6 @@
 ﻿using Signals.Ads;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Ads

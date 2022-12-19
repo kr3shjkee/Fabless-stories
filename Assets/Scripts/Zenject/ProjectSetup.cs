@@ -1,20 +1,14 @@
-﻿using System;
-using Common;
-using Loading;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Zenject
 {
-    public class ProjectSetup : IInitializable, IDisposable
+    public class ProjectSetup : IInitializable
     {
         private readonly ProjectSettings _projectSettings;
-
-        private readonly SaveSystem _saveSystem;
-
-        public ProjectSetup(ProjectSettings projectSettings, SaveSystem saveSystem)
+        
+        public ProjectSetup(ProjectSettings projectSettings)
         {
             _projectSettings = projectSettings;
-            _saveSystem = saveSystem;
         }
 
         public void Initialize()
@@ -23,11 +17,6 @@ namespace Zenject
             Input.multiTouchEnabled = _projectSettings.IsMultiTouch;
             Screen.autorotateToLandscapeLeft = _projectSettings.IsScreenRotation;
             Screen.autorotateToLandscapeRight = _projectSettings.IsScreenRotation;
-        }
-
-        public void Dispose()
-        {
-            
         }
     }
 }

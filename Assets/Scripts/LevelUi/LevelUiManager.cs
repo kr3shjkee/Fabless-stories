@@ -2,7 +2,6 @@
 using Common;
 using Configs;
 using Cysharp.Threading.Tasks;
-using Level;
 using Signals.Level;
 using Signals.Ui;
 using UnityEngine.SceneManagement;

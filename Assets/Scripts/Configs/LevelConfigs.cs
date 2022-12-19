@@ -11,13 +11,13 @@ namespace Configs
 
         public LevelCfg GetLevelConfigByNumber(int levelNumber)
         {
-            return levels.First(level => level.LevelNumber == levelNumber);
+            return levels.FirstOrDefault(level => level.LevelNumber == levelNumber);
         }
 
         public Target GetTargetByKey(LevelCfg levelCfg)
         {
             var key = levelCfg.GetTarget();
-            return targets.First(target => target.Key == key);
+            return targets.FirstOrDefault(target => target.Key == key);
         }
     }
 

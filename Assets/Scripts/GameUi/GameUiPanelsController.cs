@@ -1,6 +1,5 @@
 ﻿using Common;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GameUi
 {

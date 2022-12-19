@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Advertisements;
 
 namespace Ads
@@ -24,6 +23,11 @@ namespace Ads
             LoadBanner();
         }
 
+
+        private void OnDestroy()
+        {
+            HideBannerAd();
+        }
 
         // Implement a method to call when the Load Banner button is clicked:
         public void LoadBanner()
@@ -55,15 +59,6 @@ namespace Ads
         // Implement a method to call when the Show Banner button is clicked:
         void ShowBannerAd()
         {
-            
-            // Set up options to notify the SDK of show events:
-            BannerOptions options = new BannerOptions
-            {
-                clickCallback = OnBannerClicked,
-                hideCallback = OnBannerHidden,
-                showCallback = OnBannerShown
-            };
-
             // Show the loaded Banner Ad Unit:
             Advertisement.Banner.Show(_adUnitId);
         }
@@ -75,21 +70,5 @@ namespace Ads
             Advertisement.Banner.Hide();
         }
 
-        void OnBannerClicked()
-        {
-        }
-
-        void OnBannerShown()
-        {
-        }
-
-        void OnBannerHidden()
-        {
-        }
-
-        void OnDestroy()
-        {
-            HideBannerAd();
-        }
     }
 }

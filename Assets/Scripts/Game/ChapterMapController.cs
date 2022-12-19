@@ -1,7 +1,5 @@
-﻿using System;
-using Common;
+﻿using Common;
 using Configs;
-using Signals.Game;
 using UnityEngine;
 using Zenject;
 

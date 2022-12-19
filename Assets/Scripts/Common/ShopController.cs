@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Configs;
-using Game;
 using GameUi;
 using Signals.Ads;
 using Signals.Analytics;

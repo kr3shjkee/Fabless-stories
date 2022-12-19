@@ -1,5 +1,4 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using Signals.Game;
 using UnityEngine;
 using Zenject;

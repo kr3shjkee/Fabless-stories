@@ -1,7 +1,6 @@
 ﻿using System;
 using Common;
 using Signals.Loading;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Application = UnityEngine.Device.Application;
