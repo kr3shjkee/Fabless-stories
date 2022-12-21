@@ -88,7 +88,7 @@ namespace GameUi
             _gameUiPanelsController.CloseCurrentPanel(signal._currentPanel);
         }
 
-        protected override void UpdateGoldAfterPurchase()
+        public override void UpdateGoldAfterPurchase()
         {
             _gameUiPanelsController.UpdateGoldValue(_saveSystem.Data.Gold);
         }

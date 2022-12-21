@@ -21,10 +21,7 @@ namespace Common
             _signalBus = signalBus;
         }
 
-        protected virtual void Start()
-        {
-            _saveSystem.LoadData();
-        }
+        protected abstract void Start();
 
         protected abstract void Update();
 

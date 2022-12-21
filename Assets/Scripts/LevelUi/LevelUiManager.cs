@@ -107,9 +107,14 @@ namespace LevelUi
             _levelUiPanelsController.CloseCurrentPanel(signal._currentPanel);
         }
 
-        protected override void UpdateGoldAfterPurchase()
+        public override void UpdateGoldAfterPurchase()
         {
             _levelUiPanelsController.UpdateGoldValue(_saveSystem.Data.Gold);
+        }
+
+        public void UpdateHealthValue()
+        {
+            _levelUiPanelsController.UpdateHealthValue(_saveSystem.Data.HealthValue);
         }
 
         public void ShowFailPanel()

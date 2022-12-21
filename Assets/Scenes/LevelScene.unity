@@ -156,6 +156,7 @@ MonoBehaviour:
   elementPrefab: {fileID: 3223328910078917896, guid: efb5bf81e9fc33b4cb4eec97d462a7c4, type: 3}
   levelUiPanelsController: {fileID: 7821987458165880957, guid: 803e121689cc5a14c807e2849720b181, type: 3}
   shopItemPrefab: {fileID: 1649221445076590714, guid: 162b085746b5760499e846f46b3cce60, type: 3}
+  levelDebugMenuPrefab: {fileID: 3947070147749981431, guid: efe1b2b30dd83d34bb4960408353f5fd, type: 3}
 --- !u!114 &527335590
 MonoBehaviour:
   m_ObjectHideFlags: 0

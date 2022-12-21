@@ -117,7 +117,7 @@ namespace Game
             return _chapterMapController.Levels[_saveSystem.Data.CurrentLevelNumber-2].LocalPosition;
         }
 
-        private void NextLevel()
+        public void NextLevel()
         {
             _saveSystem.Data.IsNeedToMove = false;
             _saveSystem.SaveData();

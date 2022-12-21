@@ -1,8 +1,10 @@
 using Common;
 using Configs;
+using DebugMenu;
 using Game;
 using GameUi;
 using LevelUi;
+using Signals.DebugMenu;
 using Signals.Game;
 using Signals.Ui;
 using UnityEngine;
@@ -17,6 +19,7 @@ namespace Installers.GameScene
         [SerializeField] private MapLevel mapLevelPrefab;
         [SerializeField] private PlayerController playerControllerPrefab;
         [SerializeField] private ShopItem shopItemPrefab;
+        [SerializeField] private GameDebugMenu gameDebugMenuPrefab;
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ChapterMapController>().AsSingle().NonLazy();
@@ -33,8 +36,11 @@ namespace Installers.GameScene
                 .FromComponentInNewPrefab(shopItemPrefab);
             Container.BindInterfacesAndSelfTo<ShopController>().AsSingle().NonLazy();
             
+            Container.Bind<GameDebugMenu>().FromComponentInNewPrefab(gameDebugMenuPrefab).AsSingle().NonLazy();
+            
             BindGameSignals();
             BindUiSignals();
+            BindDebugSignals();
         }
         
         private void BindGameSignals()
@@ -67,6 +73,16 @@ namespace Installers.GameScene
             Container.DeclareSignal<OnUpdateGoldAfterPurchaseSignal>();
             Container.DeclareSignal<OnHealthBuyButtonClick>();
         }
-        
+
+        private void BindDebugSignals()
+        {
+            Container.DeclareSignal<OnHealthDownSignal>();
+            Container.DeclareSignal<OnHealthFullSignal>();
+            Container.DeclareSignal<OnGoldZeroSignal>();
+            Container.DeclareSignal<OnGoldRichSignal>();
+            Container.DeclareSignal<OnMoveToNextLevelSignal>();
+            Container.DeclareSignal<OnCloseDebugClick>();
+            Container.DeclareSignal<OnCheckHealthTimerSignal>();
+        }
     }
 }

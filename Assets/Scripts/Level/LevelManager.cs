@@ -91,7 +91,7 @@ namespace Level
             _signalBus.Fire(new OnHealthChangedSignal(_currentHealth));
         }
 
-        private void ChangeSteps(int steps)
+        public void ChangeSteps(int steps)
         {
             _currentSteps = steps;
             _signalBus.Fire(new OnStepsChangedSignal(_currentSteps));
@@ -150,7 +150,7 @@ namespace Level
             }
         }
 
-        private void WinLevel()
+        public void WinLevel()
         {
             _saveSystem.Data.CurrentLevelNumber++;
             _saveSystem.Data.IsNeedToMove = true;

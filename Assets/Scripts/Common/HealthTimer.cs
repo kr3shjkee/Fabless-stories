@@ -1,4 +1,5 @@
 ﻿using System;
+using Signals.DebugMenu;
 using Signals.Ui;
 using UnityEngine;
 
@@ -9,9 +10,16 @@ namespace Common
         [SerializeField] private int delayInHours;
         protected override void Start()
         {
-            base.Start();
+            _signalBus.Subscribe<OnCheckHealthTimerSignal>(Init);
+            Init();
+        }
+
+        private void Init()
+        {
+            
             var currentTime = DateTime.Now;
             _targetTime = currentTime.AddHours(delayInHours);
+            CheckTime();
             if (_saveSystem.Data.HealthTimer != _saveSystem.Data.DEFAULT_HEALTH_TIMER)
             {
                 timerText.gameObject.SetActive(true);
@@ -22,6 +30,7 @@ namespace Common
 
         protected override void Update()
         {
+            _saveSystem.LoadData();
             if (_saveSystem.Data.HealthValue < _saveSystem.Data.DEFAULT_HEALTH_VALUE)
             {
                 CheckTime();
@@ -31,10 +40,17 @@ namespace Common
                 var secs = time.Seconds.ToString();
                 timerText.text = hours + mins + secs;
             }
+            else if (_saveSystem.Data.HealthValue == _saveSystem.Data.DEFAULT_HEALTH_VALUE)
+            {
+                timerText.gameObject.SetActive(false);
+                _saveSystem.Data.HealthTimer = _saveSystem.Data.DEFAULT_HEALTH_TIMER;
+                _saveSystem.SaveData();
+            }
         }
 
         protected override void OnDestroy()
         {
+            _signalBus.Unsubscribe<OnCheckHealthTimerSignal>(Init);
             if (_saveSystem.Data.HealthValue >= _saveSystem.Data.DEFAULT_HEALTH_VALUE) 
                 return;
             
@@ -54,6 +70,7 @@ namespace Common
                 _saveSystem.SaveData();
                 _signalBus.Fire<OnUpdateUiValuesSignal>();
             }
+            timerText.gameObject.SetActive(true);
         }
     }
 }

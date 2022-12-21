@@ -63,7 +63,7 @@ namespace Common
 
         protected abstract void CloseCurrentPanel(OnCloseCurrentPanelSignal signal);
         
-        protected abstract void UpdateGoldAfterPurchase();
+        public abstract void UpdateGoldAfterPurchase();
 
         protected void SaveSoundOptions(OnSoundOptionChangedSignal signal)
         {
